@@ -3,7 +3,7 @@
 	"name": "CarbonFiber",
 	"description" : "Cross-platform application framework for Alloy",
 	"author": "Seth Benjamin",
-	"version": "1.0",
+	"version": "0.0.1",
 	"copyright": "Copyright (c) 2013 Seth Benjamin",
 	"license": "GPLv3",
 	"min-alloy-version": "1.3",
