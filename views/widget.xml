@@ -1,0 +1,30 @@
+<Alloy>
+	<!-- BOF: Android -->
+	<Window id="carbon" platform="android">
+		<View id="behind">
+			<View backgroundColor="red" width="240" height="240" left="0" top="0" />
+			<Label>This is the underworld.</Label>
+		</View>
+
+		<View id="wrapper" class="draggable" module="ti.draggable">
+			<View id="navigationBar" />
+			<View id="content">
+				<Label>Hello, I'm Carbon. You're using Android.</Label>
+			</View>
+		</View>
+	</Window>
+	<!-- EOF: Android -->
+
+	<!-- BOF: iOS -->
+	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable">
+		<Window id="content">
+			<Label>Hello, I'm Carbon. You're using iOS.</Label>
+		</Window>
+	</NavigationWindow>
+
+	<Window id="behind" platform="ios">
+		<View backgroundColor="red" width="240" height="240" left="0" top="0" />
+		<Label>This is the underworld.</Label>
+	</Window>
+	<!-- EOF: iOS -->
+</Alloy>

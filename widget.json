@@ -1,0 +1,13 @@
+{
+	"id": "carbonfiber",
+	"name": "CarbonFiber",
+	"description" : "Cross-platform application framework for Alloy",
+	"author": "Seth Benjamin",
+	"version": "1.0",
+	"copyright": "Copyright (c) 2013 Seth Benjamin",
+	"license": "GPLv3",
+	"min-alloy-version": "1.3",
+	"min-titanium-version": "3.2.0",
+	"tags": "framework",
+	"platforms": "android,ios"
+}

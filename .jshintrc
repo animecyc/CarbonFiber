@@ -1,0 +1,13 @@
+{
+	"globals": {
+		"WPATH": false,
+		"Alloy": false,
+		"Ti": false,
+		"Titanium": false,
+		"module": false,
+		"exports": true,
+		"require": false,
+		"_": false,
+		"$": false
+	}
+}

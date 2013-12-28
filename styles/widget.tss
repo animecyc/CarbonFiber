@@ -1,0 +1,53 @@
+"Window": {
+	backgroundColor : '#000000'
+},
+
+"Window[platform=android]": {
+	navBarHidden : true,
+	exitOnClose : true
+},
+
+"Window[platform=ios]": {
+	extendEdges: [ Ti.UI.EXTEND_EDGE_TOP ],
+	autoAdjustScrollViewInsets: true
+},
+
+"Label": {
+	color : '#FFFFFF',
+	font : {
+		fontSize : 18,
+		fontWeight : 'bold'
+	},
+	height : Ti.UI.SIZE,
+	width : Ti.UI.SIZE
+},
+
+"#behind[platform=android]": {
+	zIndex : 0
+},
+
+"#wrapper[platform=android]": {
+	zIndex : 1
+},
+
+"#navigationBar[platform=android]": {
+	zIndex : 1,
+	top : 0,
+	width : Ti.UI.FILL,
+	height : 63,
+	backgroundColor : '#FFFFFF',
+	opacity : 0.85
+},
+
+"#content[platform=android]": {
+	zIndex : 0
+},
+
+".draggable": {
+	draggableConfig : {
+		axis : 'x',
+		ensureRight : true,
+		minLeft : 0,
+		maxLeft : 250
+	}
+}
