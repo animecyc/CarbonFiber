@@ -41,13 +41,4 @@
 
 "#content[platform=android]": {
 	zIndex : 0
-},
-
-".draggable": {
-	draggableConfig : {
-		axis : 'x',
-		ensureRight : true,
-		minLeft : 0,
-		maxLeft : 250
-	}
 }

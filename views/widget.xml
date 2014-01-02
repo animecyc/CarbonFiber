@@ -2,8 +2,7 @@
 	<!-- BOF: Android -->
 	<Window id="carbon" platform="android">
 		<View id="behind">
-			<View backgroundColor="red" width="240" height="240" left="0" top="0" />
-			<Label>This is the underworld.</Label>
+			<ScrollView id="menu" backgroundColor="red" width="250" left="0" top="0" layout="vertical" />
 		</View>
 
 		<View id="wrapper" class="draggable" module="ti.draggable">
@@ -23,8 +22,7 @@
 	</NavigationWindow>
 
 	<Window id="behind" platform="ios">
-		<View backgroundColor="red" width="240" height="240" left="0" top="0" />
-		<Label>This is the underworld.</Label>
+		<ScrollView id="menu" backgroundColor="red" width="250" left="0" top="0" layout="vertical" />
 	</Window>
 	<!-- EOF: iOS -->
 </Alloy>
