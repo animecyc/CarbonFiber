@@ -16,7 +16,7 @@
                 throw 'Sync adapter [remote] requires the Underscore.String extension.';
             }
 
-            debugLog('Preparing request...');
+            console.debug('Preparing request...');
 
             var verbs = {
                 create : 'POST',
@@ -75,7 +75,7 @@
                 // support "PUT"
 
                 if (Alloy.Backbone.emulateHTTP) {
-                    debugLog('HTTP emulation is active, setting proper headers and parameters.');
+                    console.debug('HTTP emulation is active, setting proper headers and parameters.');
 
                     if (! _.has(this.options.headers, 'X-HTTP-Method-Override')) {
                         this.options.post._method = verbs[method];
@@ -122,7 +122,7 @@
 
                         resp = JSON.parse(this.responseText);
 
-                        debugLog('Request [' + xhr.status + '] => ' + _.str.truncate(xhr.responseText, 100));
+                        console.debug('Request [' + xhr.status + '] => ' + _.str.truncate(xhr.responseText, 100));
 
                         model[model instanceof Backbone.Collection ? 'reset' : 'set'](model.parse(resp, xhr), self.options);
 
@@ -137,8 +137,8 @@
                      * @return undefined
                      */
                     onerror : function (errorEvent) {
-                        debugLog('Request did not complete successfully (' + xhr.status + ').');
-                        debugLog('There was a problem fetching collection [' + errorEvent.error + '].');
+                        console.debug('Request did not complete successfully (' + xhr.status + ').');
+                        console.debug('There was a problem fetching collection [' + errorEvent.error + '].');
 
                         model.trigger('error');
                         self.options.error();
@@ -153,13 +153,13 @@
 
             if (_.isObject(this.options.headers) && _.size(this.options.headers) > 0) {
                 _.each(this.options.headers, function (headerValue, headerKey) {
-                    debugLog('Setting header: ' + headerKey + ' => ' + headerValue);
+                    console.debug('Setting header: ' + headerKey + ' => ' + headerValue);
 
                     xhr.setRequestHeader(headerKey, headerValue);
                 });
             }
 
-            debugLog('Opening client for URL (' + url + ').');
+            console.debug('Opening client for URL (' + url + ').');
 
             xhr.open(method, url);
 
@@ -167,10 +167,10 @@
                 throw 'Supplied post must be an object.';
             }
             else if (_.size(this.options.post) > 0) {
-                debugLog('Sending request with parameters: \n' + JSON.stringify(this.options.post));
+                console.debug('Sending request with parameters: \n' + JSON.stringify(this.options.post));
             }
             else {
-                debugLog('Sending request...');
+                console.debug('Sending request...');
             }
 
             xhr.send(this.options.post || undefined);
