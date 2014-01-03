@@ -1,9 +1,7 @@
 <Alloy>
 	<!-- BOF: Android -->
 	<Window id="carbon" platform="android">
-		<View id="behind">
-			<ScrollView id="menu" backgroundColor="red" width="250" left="0" top="0" layout="vertical" />
-		</View>
+		<View id="behind" />
 
 		<View id="wrapper" class="draggable" module="ti.draggable">
 			<View id="navigationBar" />
@@ -21,8 +19,6 @@
 		</Window>
 	</NavigationWindow>
 
-	<Window id="behind" platform="ios">
-		<ScrollView id="menu" backgroundColor="red" width="250" left="0" top="0" layout="vertical" />
-	</Window>
+	<Window id="behind" platform="ios" />
 	<!-- EOF: iOS -->
 </Alloy>

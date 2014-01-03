@@ -1,33 +1,44 @@
+/**
+ * GLobal
+ */
+
 "Window": {
 	backgroundColor : '#000000'
 },
+
+".draggable": {
+	draggableConfig : {
+		axis : 'x',
+        ensureRight : true,
+        minLeft : 0,
+        maxLeft : 250
+	}
+}
+
+/**
+ * iOS
+ */
+
+"Window[platform=ios]": {
+	extendEdges: [ Ti.UI.EXTEND_EDGE_TOP ],
+	autoAdjustScrollViewInsets: true
+}
+
+/**
+ * Android
+ */
 
 "Window[platform=android]": {
 	navBarHidden : true,
 	exitOnClose : true
 },
 
-"Window[platform=ios]": {
-	extendEdges: [ Ti.UI.EXTEND_EDGE_TOP ],
-	autoAdjustScrollViewInsets: true
-},
-
-"Label": {
-	color : '#FFFFFF',
-	font : {
-		fontSize : 18,
-		fontWeight : 'bold'
-	},
-	height : Ti.UI.SIZE,
-	width : Ti.UI.SIZE
+"#wrapper[platform=android]": {
+	zIndex : 1
 },
 
 "#behind[platform=android]": {
 	zIndex : 0
-},
-
-"#wrapper[platform=android]": {
-	zIndex : 1
 },
 
 "#navigationBar[platform=android]": {

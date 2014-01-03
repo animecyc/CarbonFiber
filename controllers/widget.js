@@ -56,26 +56,24 @@
         },
 
         /**
-         * Get the menu view
+         * Set options for CarbonFiber
          *
-         * @return {Ti.UI.View}
+         * @param {String} type    The type of option to change
+         * @param {Object} options An object describing option changes
          */
-        getMenuView : function () {
-            return $.menu;
-        },
-
-        /**
-         * Set the draggable options
-         *
-         * @param   {Object} options
-         * @return  undefined
-         */
-        setOptions : function (options) {
-            if (this.platform.isIOS()) {
-                $.carbon.draggable.setConfig(options);
-            }
-            else {
-                $.wrapper.draggable.setConfig(options);
+        setOptions : function (type, options) {
+            switch (type) {
+                case 'draggable' :
+                    if (this.platform.isIOS()) {
+                        $.carbon.draggable.setConfig(options);
+                    }
+                    else {
+                        $.wrapper.draggable.setConfig(options);
+                    }
+                    break;
+                default :
+                    // NOOP
+                    break;
             }
         },
 
