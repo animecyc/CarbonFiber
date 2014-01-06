@@ -37,6 +37,10 @@
 	zIndex : 1
 },
 
+"#behind": {
+	backgroundColor : "#292929"
+},
+
 "#behind[platform=android]": {
 	zIndex : 0
 },
