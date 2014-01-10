@@ -38,13 +38,13 @@
 	 */
 	CarbonAnimation.prototype.addClassAnimated = function (controller, view, properties, callback) {
 		var self = this,
-			properties = new this.propertyProxy(view);
+			proxy = new this.propertyProxy(view);
 
-		controller.addClass(properties, properties.classes.split(' '));
+		controller.addClass(proxy, properties.classes.split(' '));
 
 		this.animate(
 			view,
-			_.extend(_.omit(properties, 'classes'), properties.finalize()),
+			_.extend(_.omit(properties, 'classes'), proxy.finalize()),
 			function () {
 				if (_.isFunction(callback)) {
 					callback.call(self);
@@ -63,13 +63,13 @@
 	 */
 	CarbonAnimation.prototype.removeClassAnimated = function (controller, view, properties, callback) {
 		var self = this,
-			properties = new this.propertyProxy(view);
+			proxy = new this.propertyProxy(view);
 
-		controller.removeClass(properties, properties.classes.split(' '));
+		controller.removeClass(proxy, properties.classes.split(' '));
 
 		this.animate(
 			view,
-			_.extend(_.omit(properties, 'classes'), properties.finalize()),
+			_.extend(_.omit(properties, 'classes'), proxy.finalize()),
 			function () {
 				if (_.isFunction(callback)) {
 					callback.call(self);
