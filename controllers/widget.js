@@ -25,6 +25,8 @@
          * @return {Carbon} The Carbon instance
          */
         constructor : function () {
+            this.mixin(WPATH('lib/carbon.animate'));
+
             if (this.platform.isIOS()) {
                 $.behind.addEventListener('open', function () {
                     $.carbon.open();
