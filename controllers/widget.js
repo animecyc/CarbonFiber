@@ -111,6 +111,13 @@
             this.contexts = _.reject(this.contexts, function (context) {
                 return context === windowToClose;
             });
+        },
+
+        /**
+         * Extend Carbon
+         */
+        mixin : function () {
+            _.extend(this, _.isString(arguments[0]) ? require(arguments[0]) : arguments[0]);
         }
 
     });
