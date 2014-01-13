@@ -39,7 +39,7 @@
     PropertyProxy.prototype.finalize = function () {
     	this.__view.classes = this.classes;
 
-        return _.omit(this, 'applyProperties', 'finalize', '__view')
+        return _.omit(this, 'applyProperties', 'finalize', '__view', 'children', 'parent', 'size', 'rect')
     };
 
     exports = module.exports = PropertyProxy;
