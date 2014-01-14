@@ -120,6 +120,36 @@
          */
         mixin : function () {
             _.extend(this, _.isString(arguments[0]) ? require(arguments[0]) : arguments[0]);
+        },
+
+        /**
+         * Subscribe a Ti.Proxy to
+         * a list of events
+         *
+         * @param  {Ti.Proxy} proxy
+         * @param  {Object} subscription
+         * @param  {Object} context
+         * @return undefined
+         */
+        subscribe : function (proxy, subscription, context) {
+            var scope = context || this;
+
+            if (proxy && _.isObject(subscription)) {
+                _.each(subscription, function (callback, events) {
+                    _.each(events.split(' '), function (name) {
+
+                        // We want to ensure that the scope
+                        // of each event matches the widget's
+                        // scope so we can call related properties
+
+                        var callable = function (event) {
+                            callback.call(scope, event);
+                        };
+
+                        proxy.addEventListener(name, callable);
+                    });
+                });
+            }
         }
 
     });
