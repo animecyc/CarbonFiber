@@ -4,7 +4,7 @@
 		<View id="behind" />
 
 		<View id="wrapper" class="draggable" module="ti.draggable">
-			<View id="navigationBar" />
+			<View id="navigationBar" onSingletap="$.EVENT.derp" />
 			<View id="content">
 				<Label>Hello, I'm Carbon. You're using Android.</Label>
 			</View>
@@ -13,8 +13,11 @@
 	<!-- EOF: Android -->
 
 	<!-- BOF: iOS -->
-	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable">
+	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable" onEnd="$.EVENT.derp">
 		<Window id="content">
+			<LeftNavButton>
+				<Button onClick="$.EVENT.derp">asdf</Button>
+			</LeftNavButton>
 			<Label>Hello, I'm Carbon. You're using iOS.</Label>
 		</Window>
 	</NavigationWindow>

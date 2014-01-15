@@ -24,6 +24,12 @@
             this.mixin(WPATH('lib/carbon.animate'));
             this.mixin(WPATH('lib/carbon.colors'));
 
+            this.set({
+                revealing : false
+            });
+
+            this.createAlloyEvent('derp', this.toggleReveal);
+
             if (this.platform.isIOS()) {
                 $.behind.addEventListener('open', function () {
                     $.carbon.open();
@@ -55,20 +61,31 @@
         },
 
         /**
+         * Get the draggable view
+         *
+         * @return Carbon's draggable view
+         */
+        getDraggableView : function () {
+            return this.platform.isIOS() ? $.carbon : $.wrapper;
+        },
+
+        /**
          * Set options for CarbonFiber
          *
-         * @param {String} type    The type of option to change
-         * @param {Object} options An object describing option changes
+         * @param {String}  type    The type of option to change
+         * @param {Object}  options An object describing option changes
+         * @param {Boolean} extend  Extend the corrently set object
          */
-        setOptions : function (type, options) {
+        setOptions : function (type, options, extend) {
             switch (type) {
                 case 'draggable' :
-                    if (this.platform.isIOS()) {
-                        $.carbon.draggable.setConfig(options);
+                    if (extend) {
+                        var currentProps = JSON.parse(JSON.stringify(this.getDraggableView().draggable));
+
+                        _.extend(options, currentProps);
                     }
-                    else {
-                        $.wrapper.draggable.setConfig(options);
-                    }
+
+                    this.getDraggableView().draggable.setConfig(options);
                     break;
                 default :
                     // NOOP
@@ -112,6 +129,30 @@
             });
         },
 
+        toggleReveal : function () {
+            var isRevealing = ! this.get('revealing');
+
+            this.animate(this.getDraggableView(), {
+                left : isRevealing ? 250 : 0,
+                right : isRevealing ? -250 : 0,
+                duration : 250,
+                easing : this.animator.EXPO_IN_OUT,
+                draggable : {
+                    x : isRevealing ? 'end' : 'start'
+                }
+            });
+
+            if (this.platform.isAndroid()) {
+                this.animate(this.getBehindView(), {
+                    left : isRevealing ? 0 : 250 / -3,
+                    duration : 250,
+                    easing : this.animator.EXPO_IN_OUT
+                });
+            }
+
+            this.set('revealing', isRevealing);
+        },
+
         /**
          * Extend Carbon
          */
@@ -140,6 +181,33 @@
             else {
                 throw 'Invalid namespace supplied';
             }
+        },
+
+        /**
+         * Create an alloy event that can be accessed
+         * out of controller context (Alloy event shim)
+         *
+         * @param  {String}     name     The name of the event
+         * @param  {Function}   callback The function to be called
+         * @param  {Object}     context  Optional: The context to apply to the callback
+         * @param  {Controller} context  Optional: The controller to apply shimmed events
+         */
+        createAlloyEvent : function (name, callback, context, controller) {
+            var _controller = controller || $;
+
+            if (! _.isObject(_controller)) {
+                throw 'Invalid controller';
+            }
+
+            if (! _.has(_controller, 'EVENT')) {
+                _.extend(_controller, { EVENT : { } });
+            }
+
+            if (_.has(_controller.EVENT, name)) {
+                throw 'Cannot create duplicate event [' + name + ']';
+            }
+
+            _controller.EVENT[name] = _(callback).bind(context || this);
         },
 
         /**
