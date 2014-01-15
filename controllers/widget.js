@@ -13,18 +13,14 @@
         contexts : [],
 
         /**
-         * Platform utility
-         *
-         * @type {Platform}
-         */
-        platform : require(WPATH('lib/util.platform')),
-
-        /**
          * Creates an instance of Carbon
          *
          * @return {Carbon} The Carbon instance
          */
         constructor : function () {
+            this.load(WPATH('lib/util.platform'), 'platform');
+            this.load(WPATH('lib/util.iconic'), 'iconic');
+
             this.mixin(WPATH('lib/carbon.animate'));
             this.mixin(WPATH('lib/carbon.colors'));
 
@@ -121,6 +117,29 @@
          */
         mixin : function () {
             _.extend(this, _.isString(arguments[0]) ? require(arguments[0]) : arguments[0]);
+        },
+
+        /**
+         * Load a library into Carbon
+         * with the supplied namespace
+         *
+         * @param  {String} lib       The CommonnJS library to load
+         * @param  {String} namespace The namespace place it in
+         */
+        load : function (lib, namespace) {
+            if (namespace && _.isString(namespace)) {
+                namespace = namespace.toLowerCase();
+
+                if (! _.has(this, namespace)) {
+                    this[namespace] = require(lib);
+                }
+                else {
+                    throw 'Namespace [' + namespace + '] is already taken';
+                }
+            }
+            else {
+                throw 'Invalid namespace supplied';
+            }
         },
 
         /**
