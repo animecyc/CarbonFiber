@@ -20,6 +20,15 @@
 	};
 
 	/**
+	 * Get the API used to generate labels
+	 *
+	 * @return {Ti.UI|CoreLabel}
+	 */
+	Iconic.prototype.getApi = function () {
+        return Alloy.Globals.Carbon.platform.isIOS() ? require('com.animecyc.corelabel') : Ti.UI;
+    };
+
+	/**
 	 * Get the font-family name
 	 *
 	 * @return {String}
@@ -77,7 +86,7 @@
 
 		props.text = this.getIconAsText(icon);
 
-		return Alloy.Globals.Telemundo.getLabelFactory().createLabel(props);
+		return this.getApi().createLabel(props);
 	};
 
 	exports = module.exports = new Iconic();
