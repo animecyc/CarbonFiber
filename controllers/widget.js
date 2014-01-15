@@ -26,6 +26,7 @@
          */
         constructor : function () {
             this.mixin(WPATH('lib/carbon.animate'));
+            this.mixin(WPATH('lib/carbon.colors'));
 
             if (this.platform.isIOS()) {
                 $.behind.addEventListener('open', function () {
