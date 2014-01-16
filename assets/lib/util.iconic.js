@@ -25,7 +25,7 @@
 	 * @return {Ti.UI|CoreLabel}
 	 */
 	Iconic.prototype.getApi = function () {
-        return Alloy.Globals.Carbon.platform.isIOS() ? require('com.animecyc.corelabel') : Ti.UI;
+        return require('lib/carbonfiber/util.platform').isIOS() ? require('com.animecyc.corelabel') : Ti.UI;
     };
 
 	/**
@@ -54,37 +54,49 @@
 	/**
 	 * Create and return an icon (label)
 	 *
-	 * @param  {String} icon
-	 * @param  {Number} size
-	 * @param  {Object} opts
-	 * @return {String}
+	 * @return {Object}
 	 */
-	Iconic.prototype.createIcon = function (icon, size, opts) {
+	Iconic.prototype.createIcon = function () {
 		var props = {
-				color : 'black',
-				font : {
-					fontFamily : this.getFamily(),
-					fontSize : size || 16
+			color : 'black',
+			font : {
+				fontSize : 16
+			}
+		};
+
+		if (_.isString(arguments[0])) {
+			if (arguments.length > 1 && _.isNumber(arguments[1])) {
+				props.font.fontSize = parseInt(arguments[1], 10);
+			}
+
+			if (arguments.length > 2) {
+				// If we are supplied with a string
+				// assume that it is a color
+
+				if (_.isString(arguments[2])) {
+					props.color = arguments[2];
 				}
-			};
 
-		// If we are supplied with a string
-		// assume that it is a color
+				// If we're an object extend our
+				// currently set prop settings
 
-		if (_.isString(opts)) {
-			props.color = opts;
+				else if (_.isObject(arguments[2])) {
+					props = _.extend(props, arguments[2]);
+				}
+			}
+
+			props.text = this.getIconAsText(arguments[0]);
+		}
+		else if (_.isObject(arguments[0]) && _.has(arguments[0], 'icon')) {
+			_.extend(props, _.omit(arguments[0], 'icon'));
+
+			props.text = this.getIconAsText(arguments[0].icon);
+		}
+		else {
+			throw 'Invalid arguments.'
 		}
 
-		// If we're an object extend our
-		// currently set prop settings
-
-		else if (_.isObject(opts)) {
-			props = _.extend(props, opts);
-		}
-
-		// Get and set the icon text
-
-		props.text = this.getIconAsText(icon);
+		props.font.fontFamily = this.getFamily();
 
 		return this.getApi().createLabel(props);
 	};
