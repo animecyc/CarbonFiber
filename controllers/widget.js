@@ -157,7 +157,7 @@
          * Extend Carbon
          */
         mixin : function () {
-            _.extend(this, _.isString(arguments[0]) ? require(arguments[0]) : arguments[0]);
+            _.extend(arguments.length > 0 && _.isUndefined(arguments[1]) ? this : arguments[1] , _.isString(arguments[0]) ? require(arguments[0]) : arguments[0]);
         },
 
         /**
