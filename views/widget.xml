@@ -4,21 +4,20 @@
 		<View id="behind" />
 
 		<View id="wrapper" class="draggable" module="ti.draggable">
-			<View id="navigationBar" onSingletap="$.EVENT.derp" />
-			<View id="content">
-				<Label>Hello, I'm Carbon. You're using Android.</Label>
+			<View id="navigationBar">
+				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.EVENT.derp" />
 			</View>
+			<View id="content" />
 		</View>
 	</Window>
 	<!-- EOF: Android -->
 
 	<!-- BOF: iOS -->
-	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable" onEnd="$.EVENT.derp">
+	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable">
 		<Window id="content">
 			<LeftNavButton>
-				<Button onClick="$.EVENT.derp">asdf</Button>
+				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.EVENT.derp" />
 			</LeftNavButton>
-			<Label>Hello, I'm Carbon. You're using iOS.</Label>
 		</Window>
 	</NavigationWindow>
 

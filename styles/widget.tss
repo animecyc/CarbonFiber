@@ -1,12 +1,6 @@
-/**
- * GLobal
- */
-
-"Window": {
-	backgroundColor : '#000000'
-},
-
 ".draggable": {
+	opacity : 1,
+	backgroundColor : '#FFFFFF',
 	draggableConfig : {
 		axis : 'x',
         ensureRight : true,
@@ -15,18 +9,15 @@
 	}
 }
 
-/**
- * iOS
- */
-
 "Window[platform=ios]": {
-	extendEdges: [ Ti.UI.EXTEND_EDGE_TOP ],
-	autoAdjustScrollViewInsets: true
+	extendEdges : [ Ti.UI.EXTEND_EDGE_TOP ],
+	autoAdjustScrollViewInsets : true,
+    includeOpaqueBars : true,
+    translucent : false,
+    barColor : "#1A78B1",
+    navTintColor : 'white',
+    statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
 }
-
-/**
- * Android
- */
 
 "Window[platform=android]": {
 	navBarHidden : true,
@@ -50,10 +41,24 @@
 	top : 0,
 	width : Ti.UI.FILL,
 	height : 63,
-	backgroundColor : '#FFFFFF',
-	opacity : 0.85
+	opacity : 1,
+	backgroundColor : '#1A78B1',
+	layout : 'horizontal'
+},
+
+".menu-icon": {
+	color : 'white',
+	icon : 'menu',
+	font : {
+		fontSize : 22
+	}
+},
+
+".menu-icon[platform=android]": {
+	left : 20,
+	top : 20
 },
 
 "#content[platform=android]": {
 	zIndex : 0
-}
+},
