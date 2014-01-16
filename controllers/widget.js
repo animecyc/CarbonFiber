@@ -21,6 +21,7 @@
             this.load(WPATH('lib/util.platform'), 'platform');
             this.load(WPATH('lib/util.iconic'), 'iconic');
 
+            this.mixin(WPATH('lib/carbon.alloy'), Alloy);
             this.mixin(WPATH('lib/carbon.animate'));
             this.mixin(WPATH('lib/carbon.colors'));
 
