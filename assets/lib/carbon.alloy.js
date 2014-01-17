@@ -26,7 +26,7 @@
             }
         }, this);
 
-        return instance.getView();
+        return instance;
     };
 
     exports = module.exports = new AlloyExtended();
