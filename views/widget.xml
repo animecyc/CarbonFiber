@@ -5,7 +5,7 @@
 
 		<View id="wrapper" class="draggable" module="ti.draggable">
 			<View id="navigationBar">
-				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.EVENT.derp" />
+				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.EVENT.revealMenu" />
 			</View>
 			<View id="content" />
 		</View>
@@ -16,7 +16,7 @@
 	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable">
 		<Window id="content">
 			<LeftNavButton>
-				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.EVENT.derp" />
+				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.EVENT.revealMenu" />
 			</LeftNavButton>
 		</Window>
 	</NavigationWindow>

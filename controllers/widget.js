@@ -25,11 +25,9 @@
             this.mixin(WPATH('lib/carbon.animate'));
             this.mixin(WPATH('lib/carbon.colors'));
 
-            this.set({
-                revealing : false
+            this.createAlloyEvent('revealMenu', function () {
+                Alloy.Globals.Telemundo.set('menuIsRevealing', ! Alloy.Globals.Telemundo.get('menuIsRevealing'));
             });
-
-            this.createAlloyEvent('derp', this.toggleReveal);
 
             if (this.platform.isIOS()) {
                 $.behind.addEventListener('open', function () {
@@ -128,30 +126,6 @@
             this.contexts = _.reject(this.contexts, function (context) {
                 return context === windowToClose;
             });
-        },
-
-        toggleReveal : function () {
-            var isRevealing = ! this.get('revealing');
-
-            this.animate(this.getDraggableView(), {
-                left : isRevealing ? 250 : 0,
-                right : isRevealing ? -250 : 0,
-                duration : 250,
-                easing : this.animator.EXPO_IN_OUT,
-                draggable : {
-                    x : isRevealing ? 'end' : 'start'
-                }
-            });
-
-            if (this.platform.isAndroid()) {
-                this.animate(this.getBehindView(), {
-                    left : isRevealing ? 0 : 250 / -3,
-                    duration : 250,
-                    easing : this.animator.EXPO_IN_OUT
-                });
-            }
-
-            this.set('revealing', isRevealing);
         },
 
         /**
