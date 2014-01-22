@@ -1,12 +1,15 @@
 <Alloy>
 	<!-- BOF: Android -->
 	<Window id="carbon" platform="android">
-		<View id="behind" />
+		<View id="behindWrapper">
+			<View id="behind" />
+		</View>
 
-		<View id="wrapper" class="draggable" module="ti.draggable">
+		<View id="contentWrapper" class="draggable" module="ti.draggable">
 			<View id="navigationBar">
 				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.EVENT.revealMenu" />
 			</View>
+
 			<View id="content" />
 		</View>
 	</Window>
