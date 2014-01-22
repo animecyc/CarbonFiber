@@ -1,7 +1,9 @@
 (function () {
     'use strict';
 
-    var AlloyExtended = function () {};
+    var AlloyExtended = function () {
+        this.platform = require('lib/carbonfiber/util.platform');
+    };
 
     AlloyExtended.prototype.createControllerWithBindings = function (controller, bindings, args) {
         if (! _.isString(controller)) {
@@ -22,11 +24,26 @@
                     });
                 }
 
-                instance[key].applyProperties(_.omit(value, 'classes'));
+                this.applyProperties(instance[key], _.omit(value, 'classes'));
             }
         }, this);
 
         return instance;
+    };
+
+    AlloyExtended.prototype.applyProperties = function (proxy, props) {
+        if (! _.isObject(props)) {
+            throw 'Supplied properties must be an object';
+        }
+
+        if (this.platform.isIOS()) {
+            proxy.applyProperties(props);
+        }
+        else {
+            _.each(props, function (value, key) {
+                proxy[key] = value;
+            });
+        }
     };
 
     exports = module.exports = new AlloyExtended();
