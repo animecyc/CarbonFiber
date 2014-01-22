@@ -65,7 +65,7 @@
          * @return Carbon's draggable view
          */
         getDraggableView : function () {
-            return this.platform.isIOS() ? $.carbon : $.wrapper;
+            return this.platform.isIOS() ? $.carbon : $.contentWrapper;
         },
 
         /**

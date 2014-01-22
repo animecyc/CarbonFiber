@@ -1,14 +1,3 @@
-".draggable": {
-	opacity : 1,
-	backgroundColor : '#FFFFFF',
-	draggableConfig : {
-		axis : 'x',
-        ensureRight : true,
-        minLeft : 0,
-        maxLeft : 250
-	}
-}
-
 "Window[platform=ios]": {
 	extendEdges : [ Ti.UI.EXTEND_EDGE_TOP ],
 	autoAdjustScrollViewInsets : true,
@@ -17,22 +6,26 @@
     barColor : "#1A78B1",
     navTintColor : 'white',
     statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
-}
+},
 
 "Window[platform=android]": {
 	navBarHidden : true,
 	exitOnClose : true
 },
 
-"#wrapper[platform=android]": {
+"#contentWrapper[platform=android]": {
 	zIndex : 1
 },
 
-"#behind": {
+"#contentWrapper[platform=android]": {
+	zIndex : 0
+},
+
+"#behindWrapper": {
 	backgroundColor : "#292929"
 },
 
-"#behind[platform=android]": {
+"#behindWrapper[platform=android]": {
 	zIndex : 0
 },
 
@@ -59,6 +52,13 @@
 	top : 20
 },
 
-"#content[platform=android]": {
-	zIndex : 0
-},
+".draggable": {
+	opacity : 1,
+	backgroundColor : '#FFFFFF',
+	draggableConfig : {
+		axis : 'x',
+        ensureRight : true,
+        minLeft : 0,
+        maxLeft : 250
+	}
+}
