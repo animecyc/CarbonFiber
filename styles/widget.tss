@@ -21,11 +21,8 @@
 	zIndex : 0
 },
 
-"#behindWrapper": {
-	backgroundColor : "#292929"
-},
-
-"#behindWrapper[platform=android]": {
+".behind": {
+	backgroundColor : "#292929",
 	zIndex : 0
 },
 

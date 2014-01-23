@@ -1,7 +1,7 @@
 <Alloy>
 	<!-- BOF: Android -->
 	<Window id="carbon" platform="android">
-		<View id="behindWrapper">
+		<View id="behindWrapper" class="behind">
 			<View id="behind" />
 		</View>
 
@@ -24,6 +24,6 @@
 		</Window>
 	</NavigationWindow>
 
-	<Window id="behind" platform="ios" />
+	<Window id="behind" platform="ios" class="behind" />
 	<!-- EOF: iOS -->
 </Alloy>
