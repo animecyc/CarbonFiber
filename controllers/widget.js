@@ -25,8 +25,8 @@
             this.mixin(WPATH('lib/carbon.animate'));
             this.mixin(WPATH('lib/carbon.colors'));
 
-            this.createAlloyEvent('revealMenu', function () {
-                Alloy.Globals.Telemundo.set('menuIsRevealing', ! Alloy.Globals.Telemundo.get('menuIsRevealing'));
+            _.extend($, {
+                getEvent : this.getEvent
             });
 
             if (this.platform.isIOS()) {
@@ -183,6 +183,25 @@
             }
 
             _controller.EVENT[name] = _(callback).bind(context || this);
+        },
+
+        /**
+         * Get the event from the extended
+         * alloy global events
+         *
+         * @param  {String} eventName
+         * @return {Function}
+         */
+        getEvent : function (eventName) {
+            return function () {
+                if (! _.has($.EVENT, eventName)) {
+                    throw 'The event [' + eventName + '] is not found.';
+                }
+
+                var callback = $.EVENT[eventName];
+
+                return callback.apply(callback, arguments);
+            };
         },
 
         /**
