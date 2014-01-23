@@ -81,7 +81,17 @@
      * @return {Number}
      */
     Platform.prototype.dpToPx = function (dp) {
-        return this._measurement.dpToPX(dp);
+        return this.isIOS() ? dp : this._measurement.dpToPX(dp);
+    };
+
+    /**
+     * Alias; Convert PX to DiP
+     *
+     * @param  {Number} px
+     * @return {Number}
+     */
+    Platform.prototype.pxToDp = function (px) {
+        return this.isIOS() ? px : this._measurement.pxToDP(px);
     };
 
     exports = module.exports = (function () {
