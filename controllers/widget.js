@@ -30,6 +30,8 @@
             });
 
             if (this.platform.isIOS()) {
+                this.createOrGetStatusBar();
+
                 $.behind.addEventListener('open', function () {
                     $.carbon.open();
                 });
@@ -39,6 +41,18 @@
             else {
                 $.carbon.open();
             }
+        },
+
+        /**
+         * Get or create the status bar
+         *
+         * @return {Ti.UI.View}
+         */
+        createOrGetStatusBar : function () {
+            return require('com.animecyc.statusbar').createOrGetStatusBar({
+                opacity : 0,
+                backgroundColor : '#1F1F1F'
+            });
         },
 
         /**
