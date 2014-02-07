@@ -9,6 +9,7 @@
 },
 
 "Window[platform=android]": {
+    windowSoftInputMode : Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN,
 	navBarHidden : true,
 	exitOnClose : true
 },
