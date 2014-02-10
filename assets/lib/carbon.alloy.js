@@ -5,12 +5,25 @@
         this.platform = require('lib/carbonfiber/util.platform');
     };
 
+    AlloyExtended.prototype.subclass = function($, construction, classOnly) {
+        _.extend(construction, {
+            constructor : _.compose(
+                function () {
+                    _.extend($, { klass : this });
+                },
+                construction.constructor || function () {}
+            )
+        });
+
+        return require('lib/carbonfiber/util.stapes').subclass(construction, classOnly);
+    };
+
     AlloyExtended.prototype.createControllerWithBindings = function (controller, bindings, args) {
         if (! _.isString(controller)) {
             throw 'Controller name must be a valid string.';
         }
 
-        var instance = new (require("alloy/controllers/" + controller))(args);
+        var instance = new (require('alloy/controllers/' + controller))(args);
 
         if (! _.isObject(bindings)) {
             throw 'Bindings are required and must be an object.';
