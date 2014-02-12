@@ -101,7 +101,7 @@
                         indent = parseInt(indent, 10);
                     }
 
-                    console.log('CarbonFiber ~' + Array(Math.abs(indent)).join('~') + '> ' + message);
+                    console.log('CarbonFiber ~' + Array(Math.abs(indent)).join('~') + '>', message);
                 }
             }
 
