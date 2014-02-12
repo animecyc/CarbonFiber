@@ -7,6 +7,8 @@
         return -1 === index ? 'carbonfiber/' + s : s.substring(0, index) + '/carbonfiber/' + s.substring(index + 1);
     }
 
+    require(WPATH('lib/carbonfiber.exception'));
+
     if (! Alloy.CarbonFiber) {
         var CarbonFiber = require(WPATH('lib/util.stapes')).subclass({
 
