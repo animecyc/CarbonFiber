@@ -148,7 +148,7 @@
      */
     AlloyExtended.prototype._createController = Alloy.createController;
     AlloyExtended.prototype.createController = function(name, args) {
-        console.debug('Creating controller [' + name + ']...');
+        Alloy.CarbonFiber.log('Creating controller [' + name + ']...');
 
         var isGlobal = _.isObject(args) && (args.global == 'true' || args.global == 1),
             controller;
@@ -176,7 +176,7 @@
      */
     AlloyExtended.prototype._createModel = Alloy.createModel;
     AlloyExtended.prototype.createModel = function(name, args) {
-        console.debug('Creating model [' + name + ']...');
+        Alloy.CarbonFiber.log('Creating model [' + name + ']...');
 
         return this._createModel(name, args);
     };
@@ -191,7 +191,7 @@
      */
     AlloyExtended.prototype._createCollection = Alloy.createCollection;
     AlloyExtended.prototype.createCollection = function(name, args) {
-        console.debug('Creating collection [' + name + ']...');
+        Alloy.CarbonFiber.log('Creating collection [' + name + ']...');
 
         return this._createCollection(name, args);
     };

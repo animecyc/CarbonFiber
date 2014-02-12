@@ -21,7 +21,7 @@
              * Creates a new instance of CarbonFiber
              */
             constructor : function () {
-                console.debug('Loading CarbonFiber...');
+                this.log('Loading CarbonFiber...');
 
                 this.load(WPATH('lib/carbonfiber.platform'), 'platform');
                 this.load(WPATH('lib/carbonfiber.iconic'), 'iconic');
@@ -32,12 +32,12 @@
                 this.mixin(WPATH('lib/carbonfiber.utility'));
                 this.mixin(WPATH('lib/carbonfiber.context'));
 
-                console.debug('Setting up globals...');
+                this.log('Setting up globals...');
 
                 _.str = require('lib/carbonfiber/util.underscore.string');
                 _.mixin(_.str.exports());
 
-                console.debug('Shimming Backbone...');
+                this.log('Shimming Backbone...');
 
                 // If the version of Backbone being used
                 // does not have the `once` method/event
@@ -87,6 +87,21 @@
              */
             mixin : function () {
                 _.extend(arguments.length > 0 && _.isUndefined(arguments[1]) ? this : arguments[1] , _.isString(arguments[0]) ? require(arguments[0]) : arguments[0]);
+            },
+
+            /**
+             * Log messages against the console
+             */
+            log : function (message, indent) {
+                if (Alloy.CFG.debug) {
+                    indent = indent || 0;
+
+                    if (! _.isNumber(indent)) {
+                        indent = parseInt(indent, 10);
+                    }
+
+                    console.log('CarbonFiber ~' + Array(Math.abs(indent)).join('~') + '> ' + message);
+                }
             }
 
         });
