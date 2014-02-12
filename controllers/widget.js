@@ -8,8 +8,10 @@
     Alloy.CarbonFiber.setWidgetController($);
 
     if (Alloy.CarbonFiber.platform.isIOS()) {
-        $.behind.addEventListener('open', function () {
-            $.carbon.open();
+        Alloy.CarbonFiber.subscribe($.behind, {
+            'open' : function () {
+                $.carbon.open();
+            }
         });
 
         $.behind.open();
