@@ -2,8 +2,6 @@
 	'use strict';
 
 	function CarbonFiberException(name, exception) {
-		console.log('derp', exception);
-
 		this.name = name;
 		this.file = exception.sourceURL.replace(/(.*)\.(app|apk)/, '');
 		this.line = exception.line;
