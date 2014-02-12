@@ -7,8 +7,6 @@
         return -1 === index ? 'carbonfiber/' + s : s.substring(0, index) + '/carbonfiber/' + s.substring(index + 1);
     }
 
-    require(WPATH('lib/carbonfiber.exception'));
-
     if (! Alloy.CarbonFiber) {
         var CarbonFiber = require(WPATH('lib/util.stapes')).subclass({
 
@@ -28,6 +26,7 @@
                 this.load(WPATH('lib/carbonfiber.platform'), 'platform');
                 this.load(WPATH('lib/carbonfiber.iconic'), 'iconic');
 
+                this.mixin(WPATH('lib/carbonfiber.exception'));
                 this.mixin(WPATH('lib/carbonfiber.alloy'), Alloy);
                 this.mixin(WPATH('lib/carbonfiber.animate'));
                 this.mixin(WPATH('lib/carbonfiber.colors'));
