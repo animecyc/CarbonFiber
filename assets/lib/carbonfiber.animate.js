@@ -6,7 +6,7 @@
 	 */
 	var CarbonAnimation = function () {
 		this.animator = require('com.animecyc.animator');
-		this.propertyProxy = require('lib/carbonfiber/util.propertyProxy');
+		this.propertyProxy = require('lib/carbonfiber/carbonfiber.propertyProxy');
 	};
 
 	/**

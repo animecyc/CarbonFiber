@@ -7,7 +7,7 @@
 
 		<View id="contentWrapper" class="draggable" module="ti.draggable">
 			<View id="navigationBar">
-				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.getEvent('revealMenu')" />
+				<Icon ns="Alloy.CarbonFiber.iconic" class="menu-icon" onClick="Alloy.getEvent('revealMenu')" />
 			</View>
 
 			<View id="content" />
@@ -19,7 +19,7 @@
 	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable">
 		<Window id="content">
 			<LeftNavButton>
-				<Icon module="lib/carbonfiber/util.iconic" class="menu-icon" onClick="$.getEvent('revealMenu')" />
+				<Icon ns="Alloy.CarbonFiber.iconic" class="menu-icon" onClick="Alloy.getEvent('revealMenu')" />
 			</LeftNavButton>
 		</Window>
 	</NavigationWindow>

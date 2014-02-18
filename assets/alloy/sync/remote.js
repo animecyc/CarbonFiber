@@ -4,6 +4,14 @@
     exports = module.exports = {
 
         /**
+         * Number of spaces to indent
+         * debug messages
+         *
+         * @type {Number}
+         */
+        indentLog : 4,
+
+        /**
          * Override for Backbone's `sync` method
          *
          * @param  {String} method
@@ -16,7 +24,7 @@
                 throw 'Sync adapter [remote] requires the Underscore.String extension.';
             }
 
-            console.debug('Preparing request...');
+            Alloy.CarbonFiber.log('Remote - Preparing request...', this.indentLog);
 
             var verbs = {
                 create : 'POST',
@@ -75,7 +83,7 @@
                 // support "PUT"
 
                 if (Alloy.Backbone.emulateHTTP) {
-                    console.debug('HTTP emulation is active, setting proper headers and parameters.');
+                    Alloy.CarbonFiber.log('Remote - HTTP emulation is active, setting proper headers and parameters.', this.indentLog);
 
                     if (! _.has(this.options.headers, 'X-HTTP-Method-Override')) {
                         this.options.post._method = verbs[method];
@@ -122,7 +130,7 @@
 
                         resp = JSON.parse(this.responseText);
 
-                        console.debug('Request [' + xhr.status + '] => ' + _.str.truncate(xhr.responseText, 100));
+                        Alloy.CarbonFiber.log('Remote - Request [' + xhr.status + '] => ' + _.str.truncate(xhr.responseText, 100), self.indentLog);
 
                         model[model instanceof Backbone.Collection ? 'reset' : 'set'](model.parse(resp, xhr), self.options);
 
@@ -137,8 +145,8 @@
                      * @return undefined
                      */
                     onerror : function (errorEvent) {
-                        console.debug('Request did not complete successfully (' + xhr.status + ').');
-                        console.debug('There was a problem fetching collection [' + errorEvent.error + '].');
+                        Alloy.CarbonFiber.log('Remote - Request did not complete successfully (' + xhr.status + ').', self.indentLog);
+                        Alloy.CarbonFiber.log('Remote - There was a problem fetching collection [' + errorEvent.error + '].', self.indentLog);
 
                         model.trigger('error');
                         self.options.error();
@@ -153,13 +161,13 @@
 
             if (_.isObject(this.options.headers) && _.size(this.options.headers) > 0) {
                 _.each(this.options.headers, function (headerValue, headerKey) {
-                    console.debug('Setting header: ' + headerKey + ' => ' + headerValue);
+                    Alloy.CarbonFiber.log('Remote - Setting header: ' + headerKey + ' => ' + headerValue, this.indentLog);
 
                     xhr.setRequestHeader(headerKey, headerValue);
-                });
+                }, this);
             }
 
-            console.debug('Opening client for URL (' + url + ').');
+            Alloy.CarbonFiber.log('Remote - Opening client for URL (' + url + ').', this.indentLog);
 
             xhr.open(method, url);
 
@@ -167,10 +175,10 @@
                 throw 'Supplied post must be an object.';
             }
             else if (_.size(this.options.post) > 0) {
-                console.debug('Sending request with parameters: \n' + JSON.stringify(this.options.post));
+                Alloy.CarbonFiber.log('Remote - Sending request with parameters: \n' + JSON.stringify(this.options.post), this.indentLog);
             }
             else {
-                console.debug('Sending request...');
+                Alloy.CarbonFiber.log('Remote - Sending request...', this.indentLog);
             }
 
             xhr.send(this.options.post || undefined);

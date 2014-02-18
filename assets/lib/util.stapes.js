@@ -1,4 +1,3 @@
-/*global module,exports:true,define*/
 //
 //  ____  _                           _
 // / ___|| |_ __ _ _ __   ___  ___   (_)___  (*)
@@ -7,17 +6,17 @@
 // |____/ \__\__,_| .__/ \___||___(_)/ |___/
 //              |_|              |__/
 //
-// (*) a (really) tiny Javascript MVC microframework
+// (*) the Javascript MVC microframework that does just enough
 //
 // (c) Hay Kranen < hay@bykr.org >
 // Released under the terms of the MIT license
 // < http://en.wikipedia.org/wiki/MIT_License >
 //
 // Stapes.js : http://hay.github.com/stapes
-(function() {
+;(function() {
     'use strict';
 
-    var VERSION = '0.8.0';
+    var VERSION = "0.8.1";
 
     // Global counter for all events in all modules (including mixed in objects)
     var guid = 1;
@@ -37,7 +36,7 @@
         attributes : {},
 
         eventHandlers : {
-            '-1' : {} // '-1' is used for the global event handling
+            "-1" : {} // '-1' is used for the global event handling
         },
 
         guid : -1,
@@ -52,10 +51,10 @@
 
             // Push an event object
             _.eventHandlers[event.guid][event.type].push({
-                'guid' : event.guid,
-                'handler' : event.handler,
-                'scope' : event.scope,
-                'type' : event.type
+                "guid" : event.guid,
+                "handler" : event.handler,
+                "scope" : event.scope,
+                "type" : event.type
             });
         },
 
@@ -63,7 +62,7 @@
             var eventMap = {},
                 scope;
 
-            if (typeof argTypeOrMap === 'string') {
+            if (typeof argTypeOrMap === "string") {
                 scope = argScope || false;
                 eventMap[ argTypeOrMap ] = argHandlerOrScope;
             } else {
@@ -73,15 +72,15 @@
 
             for (var eventString in eventMap) {
                 var handler = eventMap[eventString];
-                var events = eventString.split(' ');
+                var events = eventString.split(" ");
 
                 for (var i = 0, l = events.length; i < l; i++) {
                     var eventType = events[i];
                     _.addEvent.call(this, {
-                        'guid' : this._guid || this._.guid,
-                        'handler' : handler,
-                        'scope' : scope,
-                        'type' : eventType
+                        "guid" : this._guid || this._.guid,
+                        "handler" : handler,
+                        "scope" : scope,
+                        "type" : eventType
                     });
                 }
             }
@@ -136,7 +135,7 @@
             function constructor() {
                 // Be kind to people forgetting new
                 if (!(this instanceof constructor)) {
-                    throw new Error('Please use \'new\' when initializing Stapes classes');
+                    throw new Error("Please use 'new' when initializing Stapes classes");
                 }
 
                 // If this class has events add a GUID as well
@@ -240,8 +239,9 @@
             silent = silent || false;
 
             // Split the key, maybe we want to remove more than one item
-            var attributes = _.trim(keys).split(' '),
-                mutateData = {};
+            var attributes = _.trim(keys).split(" ")
+                ,mutateData = {}
+                ;
 
             // Actually delete the item
             for (var i = 0, l = attributes.length; i < l; i++) {
@@ -324,9 +324,9 @@
             // Throw namespaced and non-namespaced 'mutate' events as well with
             // the old value data as well and some extra metadata such as the key
             var mutateData = {
-                'key' : key,
-                'newValue' : value,
-                'oldValue' : oldValue || null
+                "key" : key,
+                "newValue" : value,
+                "oldValue" : oldValue || null
             };
 
             this.emit('mutate', mutateData);
@@ -346,7 +346,7 @@
         },
 
         typeOf : function(val) {
-            if (val === null || typeof val === 'undefined') {
+            if (val === null || typeof val === "undefined") {
                 // This is a special exception for IE, in other browsers the
                 // method below works all the time
                 return String(val);
@@ -375,9 +375,9 @@
     // Can be mixed in later using Stapes.mixinEvents(object);
     var Events = {
         emit : function(types, data) {
-            data = (typeof data === 'undefined') ? null : data;
+            data = (typeof data === "undefined") ? null : data;
 
-            var splittedTypes = types.split(' ');
+            var splittedTypes = types.split(" ");
 
             for (var i = 0, l = splittedTypes.length; i < l; i++) {
                 var type = splittedTypes[i];
@@ -385,7 +385,7 @@
                 // First 'all' type events: is there an 'all' handler in the
                 // global stack?
                 if (_.eventHandlers[-1].all) {
-                    _.emitEvents.call(this, 'all', data, type, -1);
+                    _.emitEvents.call(this, "all", data, type, -1);
                 }
 
                 // Catch all events for this type?
@@ -396,7 +396,7 @@
                 if (typeof this._guid === 'number') {
                     // 'all' event for this specific module?
                     if (_.eventHandlers[this._guid].all) {
-                        _.emitEvents.call(this, 'all', data, type);
+                        _.emitEvents.call(this, "all", data, type);
                     }
 
                     // Finally, normal events :)
@@ -447,7 +447,7 @@
         },
 
         get : function(input) {
-            if (typeof input === 'string') {
+            if (typeof input === "string") {
                 // If there is more than one argument, give back an object,
                 // like Underscore's pick()
                 if (arguments.length > 1) {
@@ -462,7 +462,7 @@
                 } else {
                     return this.has(input) ? _.attr(this._guid)[input] : null;
                 }
-            } else if (typeof input === 'function') {
+            } else if (typeof input === "function") {
                 var items = this.filter(input);
                 return (items.length) ? items[0] : null;
             }
@@ -479,7 +479,7 @@
             for (var key in attributes) {
                 var value = attributes[key];
 
-                if (_.typeOf(value) === 'object' && !value.id) {
+                if (_.typeOf(value) === "object" && !value.id) {
                     value.id = key;
                 }
 
@@ -490,7 +490,7 @@
         },
 
         has : function(key) {
-            return (typeof _.attr(this._guid)[key] !== 'undefined');
+            return (typeof _.attr(this._guid)[key] !== "undefined");
         },
 
         map : function(fn, ctx) {
@@ -503,7 +503,7 @@
 
         // Akin to set(), but makes a unique id
         push : function(input, silent) {
-            if (_.typeOf(input) === 'array') {
+            if (_.typeOf(input) === "array") {
                 for (var i = 0, l = input.length; i < l; i++) {
                     _.setAttribute.call(this, _.makeUuid(), input[i], silent || false);
                 }
@@ -519,7 +519,7 @@
                 // With no arguments, remove deletes all attributes
                 _.attributes[this._guid] = {};
                 this.emit('change remove');
-            } else if (typeof input === 'function') {
+            } else if (typeof input === "function") {
                 this.each(function(item, key) {
                     if (input(item)) {
                         _.removeAttribute.call(this, key, silent);
@@ -534,7 +534,7 @@
         },
 
         set : function(objOrKey, valueOrSilent, silent) {
-            if (typeof objOrKey === 'object') {
+            if (typeof objOrKey === "object") {
                 for (var key in objOrKey) {
                     _.setAttribute.call(this, key, objOrKey[key], valueOrSilent || false);
                 }
@@ -557,9 +557,9 @@
         },
 
         update : function(keyOrFn, fn, silent) {
-            if (typeof keyOrFn === 'string') {
+            if (typeof keyOrFn === "string") {
                 _.updateAttribute.call(this, keyOrFn, fn, silent || false);
-            } else if (typeof keyOrFn === 'function') {
+            } else if (typeof keyOrFn === "function") {
                 this.each(function(value, key) {
                     _.updateAttribute.call(this, key, keyOrFn);
                 });
@@ -570,13 +570,13 @@
     };
 
     var Stapes = {
-        '_' : _, // private helper functions and properties
+        "_" : _, // private helper functions and properties
 
-        'extend' : function() {
+        "extend" : function() {
             return _.extendThis.apply(_.Module.prototype, arguments);
         },
 
-        'mixinEvents' : function(obj) {
+        "mixinEvents" : function(obj) {
             obj = obj || {};
 
             _.addGuid(obj);
@@ -584,29 +584,29 @@
             return _.extend(obj, Events);
         },
 
-        'on' : function() {
+        "on" : function() {
             _.addEventHandler.apply(this, arguments);
         },
 
-        'subclass' : function(obj, classOnly) {
+        "subclass" : function(obj, classOnly) {
             classOnly = classOnly || false;
             obj = obj || {};
             obj.superclass = classOnly ? function(){} : _.Module;
             return _.createSubclass(obj, !classOnly);
         },
 
-        'version' : VERSION
+        "version" : VERSION
     };
 
     // This library can be used as an AMD module, a Node.js module, or an
     // old fashioned global
-    if (typeof exports !== 'undefined') {
+    if (typeof exports !== "undefined") {
         // Server
-        if (typeof module !== 'undefined' && module.exports) {
+        if (typeof module !== "undefined" && module.exports) {
             exports = module.exports = Stapes;
         }
         exports.Stapes = Stapes;
-    } else if (typeof define === 'function' && define.amd) {
+    } else if (typeof define === "function" && define.amd) {
         // AMD
         define(function() {
             return Stapes;
