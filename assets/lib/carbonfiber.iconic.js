@@ -9,13 +9,19 @@
         // Icon listing
 
         this.iconChars = {
-            menu     : 0xe800,
-            share    : 0xe801,
-            next     : 0xe802,
-            search   : 0xe803,
-            settings : 0xe804,
-            camera   : 0xe805,
-            chevron  : 0xe806
+            menu       : 0xe800,
+            share      : 0xe801,
+            next       : 0xe802,
+            search     : 0xe803,
+            settings   : 0xe804,
+            camera     : 0xe805,
+            chevron    : 0xe806,
+            play       : 0xe807,
+            pause      : 0xe808,
+            fullscreen : 0xe809,
+            resize     : 0xe810,
+            cc         : 0xe811,
+            ellipsis   : 0xe812
         };
     };
 
