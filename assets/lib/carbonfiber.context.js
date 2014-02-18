@@ -43,6 +43,14 @@
             windowToOpen.open(openParams || {});
         }
 
+        Alloy.CarbonFiber.subscribe(windowToOpen, {
+            close : function () {
+                this.contexts = _.reject(this.contexts, function (context) {
+                    return context === windowToOpen;
+                });
+            }
+        }, this);
+
         this.contexts.push(windowToOpen);
     };
 
