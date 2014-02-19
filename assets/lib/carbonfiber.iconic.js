@@ -99,7 +99,7 @@
             props.text = this.getIconAsText(arguments[0].icon);
         }
         else {
-            throw 'Invalid arguments';
+            throw 'Icon name is required for icon creation';
         }
 
         props.font.fontFamily = this.getFamily();

@@ -125,6 +125,17 @@
     };
 
     /**
+     * Remove an event from the global event list
+     *
+     * @param  {String} eventName Event to remove
+     */
+    AlloyExtended.prototype.clearEvent = function (eventName) {
+        this.events = _.reject(this.events, function (event) {
+            return event === eventName;
+        });
+    };
+
+    /**
      * Get a global cached controller
      *
      * @param  {String}     name The name of the controller
