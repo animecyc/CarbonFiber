@@ -167,7 +167,7 @@
                 }, this);
             }
 
-            Alloy.CarbonFiber.log('Remote - Opening client for URL (' + url + ').', this.indentLog);
+            Alloy.CarbonFiber.log('Remote - Opening [' + method + '] client for URL (' + url + ').', this.indentLog);
 
             xhr.open(method, url);
 
