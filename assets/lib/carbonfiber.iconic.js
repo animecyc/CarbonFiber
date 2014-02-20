@@ -21,7 +21,9 @@
             fullscreen : 0xe809,
             resize     : 0xe810,
             cc         : 0xe811,
-            ellipsis   : 0xe812
+            ellipsis   : 0xe812,
+            back       : 0xe813,
+            up         : 0xe8124
         };
     };
 
