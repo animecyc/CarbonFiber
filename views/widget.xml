@@ -7,8 +7,10 @@
 
 		<View id="contentWrapper" class="draggable" module="ti.draggable">
 			<View id="navigationBar">
-				<Icon ns="Alloy.CarbonFiber.iconic" class="icon icon-menu" onClick="Alloy.getEvent('revealMenu')" />
 				<ImageView id="logo" />
+				<View class="icon-menu-container" onClick="Alloy.getEvent('revealMenu')">
+					<Icon ns="Alloy.CarbonFiber.iconic" class="icon icon-menu" />
+				</View>
 			</View>
 
 			<View id="content" />

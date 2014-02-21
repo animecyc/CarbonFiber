@@ -58,9 +58,18 @@
     icon : 'menu'
 },
 
+".icon-menu-container[platform=android]": {
+    height : 63,
+    width : Ti.UI.SIZE,
+    left : 0,
+    top : 0
+},
+
 ".icon-menu[platform=android]": {
     left : 20,
-    top : 20
+    right : 20,
+    top : 0,
+    height : 63
 }
 
 ".draggable": {
@@ -75,5 +84,7 @@
 },
 
 "#logo": {
-    height : 36
+    height : 36,
+    left : 50,
+    right : 50
 }
