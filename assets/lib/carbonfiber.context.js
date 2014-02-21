@@ -36,9 +36,7 @@
      * @see http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.Window
      */
     Context.prototype.openWindow = function (windowToOpen, openParams) {
-        if (Alloy.isHandheld) {
-            this.getDraggableView().draggable.enabled = false;
-        }
+        this.getDraggableView().draggable.enabled = false;
 
         if (this.platform.isIOS()) {
             this.getWidgetController().carbon.openWindow(windowToOpen, openParams || {});
@@ -49,9 +47,7 @@
 
         Alloy.CarbonFiber.subscribe(windowToOpen, {
             close : function () {
-                if (Alloy.isHandheld) {
-                    this.getDraggableView().draggable.enabled = true;
-                }
+                this.getDraggableView().draggable.enabled = true;
 
                 this.contexts = _.reject(this.contexts, function (context) {
                     return context === windowToOpen;
@@ -76,9 +72,7 @@
             windowToClose.close(closeParams || {});
         }
 
-        if (Alloy.isHandheld) {
-            this.getDraggableView().draggable.enabled = true;
-        }
+        this.getDraggableView().draggable.enabled = true;
 
         this.contexts = _.reject(this.contexts, function (context) {
             return context === windowToClose;
