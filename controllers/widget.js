@@ -14,7 +14,9 @@
             }
         });
 
-        $.behind.open();
+        _.defer(function () {
+            $.behind.open();
+        });
     }
     else {
         $.carbon.open();

@@ -3,7 +3,6 @@
 },
 
 "Window[platform=ios]": {
-	extendEdges : [ Ti.UI.EXTEND_EDGE_TOP ],
 	autoAdjustScrollViewInsets : true,
     includeOpaqueBars : true,
     translucent : false,
@@ -32,27 +31,49 @@
 },
 
 "#navigationBar[platform=android]": {
-	zIndex : 1,
-	top : 0,
-	width : Ti.UI.FILL,
-	height : 63,
-	opacity : 1,
-	backgroundColor : '#1A78B1',
-	layout : 'horizontal'
+    zIndex : 1,
+    top : 0,
+    width : Ti.UI.FILL,
+    height : 63,
+    opacity : 1,
+    backgroundColor : '#1A78B1'
 },
 
-".menu-icon": {
-	color : 'white',
-	icon : 'menu',
-	font : {
-		fontSize : 22
-	}
+"#navigationBar[platform=ios]": {
+    zIndex : 1,
+    top : 0,
+    width : Ti.UI.SIZE,
+    height : 63,
+    opacity : 1,
+    backgroundColor : 'red'
 },
 
-".menu-icon[platform=android]": {
-	left : 20,
-	top : 20
+".icon": {
+    color : "#FFFFFF",
+    textAlign : "center",
+    width : 25,
+    font : {
+        fontSize : 22
+    }
 },
+
+".icon-menu": {
+    icon : 'menu'
+},
+
+".icon-menu-container[platform=android]": {
+    height : 63,
+    width : Ti.UI.SIZE,
+    left : 0,
+    top : 0
+},
+
+".icon-menu[platform=android]": {
+    left : 20,
+    right : 20,
+    top : 0,
+    height : 63
+}
 
 ".draggable": {
 	opacity : 1,
@@ -63,4 +84,10 @@
         minLeft : 0,
         maxLeft : 250
 	}
+},
+
+"#logo": {
+    height : 36,
+    left : 50,
+    right : 50
 }
