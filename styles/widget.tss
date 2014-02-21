@@ -1,5 +1,4 @@
 "Window[platform=ios]": {
-	extendEdges : [ Ti.UI.EXTEND_EDGE_TOP ],
 	autoAdjustScrollViewInsets : true,
     includeOpaqueBars : true,
     translucent : false,
