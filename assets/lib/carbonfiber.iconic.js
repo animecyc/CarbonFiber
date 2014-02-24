@@ -23,7 +23,9 @@
             cc         : 0xe811,
             ellipsis   : 0xe812,
             back       : 0xe813,
-            up         : 0xe8124
+            up         : 0xe814,
+            facebook   : 0xe80B,
+            twitter    : 0xe80A
         };
     };
 
