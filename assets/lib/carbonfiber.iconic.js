@@ -24,8 +24,9 @@
             ellipsis   : 0xe812,
             back       : 0xe813,
             up         : 0xe814,
+            twitter    : 0xe80A,
             facebook   : 0xe80B,
-            twitter    : 0xe80A
+            close      : 0xe80C
         };
     };
 
