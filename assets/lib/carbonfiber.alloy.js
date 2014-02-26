@@ -71,7 +71,9 @@
 
                                 if (this.klass.relatedControllers) {
                                     _.each(this.klass.relatedControllers, function (related) {
-                                        related.dispose();
+                                        if (_.has(related, 'dispose') && _.isFunction(related.dispose)) {
+                                            related.dispose();
+                                        }
 
                                         related = null;
                                     });
