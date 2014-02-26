@@ -9,7 +9,7 @@
 
     /**
      * An alias of `Stapes.subclass` with
-     * add sugar to make the class accessible
+     * added sugar to make the class accessible
      * through an Alloy controller
      *
      * @param  {Controller} controller    The Alloy controller to inject into
@@ -17,8 +17,24 @@
      * @param  {Boolean}    classOnly     Flag to only create the class (no events or dictionary)
      * @return {Stapes}                   The constructed subclass
      */
-    AlloyExtended.prototype.subclass = function(controller, construction, classOnly) {
+    AlloyExtended.prototype.composeController = function(controller, construction, classOnly) {
         _.extend(construction, {
+
+            /**
+             * An array of related controllers
+             *
+             * @type {Array}
+             */
+            relatedControllers : [],
+
+            /**
+             * An array of callbacks to be executed
+             * when the composite controller is
+             * disposed
+             *
+             * @type {Array}
+             */
+            disposeCallbacks : [],
 
             /**
              * A composed constructor to
@@ -26,13 +42,113 @@
              * gets injected into an Alloy controller
              */
             constructor : _.compose(
-                function () { _.extend(controller, { klass : this }); },
+                function () {
+                    _.extend(controller, {
+
+                        /**
+                         * Constructed Stapes class
+                         *
+                         * @type {Stapes}
+                         */
+                        klass : this,
+
+                        /**
+                         * Properly destroy our composite controller
+                         */
+                        dispose : function () {
+                            Alloy.CarbonFiber.log('Disposing Controller [' + this.__controllerPath + ']...');
+
+                            if (_.has(this, 'klass')) {
+                                if (this.klass.disposeCallbacks) {
+                                    _.each(this.klass.disposeCallbacks, function (callback) {
+                                        callback();
+
+                                        callback = null;
+                                    });
+
+                                    delete this.klass.disposeCallbacks;
+                                }
+
+                                if (this.klass.relatedControllers) {
+                                    _.each(this.klass.relatedControllers, function (related) {
+                                        related.dispose();
+
+                                        related = null;
+                                    });
+
+                                    delete this.klass.relatedControllers;
+                                }
+
+                                this.klass.remove(function () {
+                                    return true;
+                                }, true);
+
+                                delete this.klass;
+                            }
+
+                            var view = this.getView(),
+                                views = this.getViews(),
+                                complete = _.after(views.length, function () {
+                                    if (view.getParent()) {
+                                        view.parent.remove(view);
+                                    }
+
+                                    view = views = null;
+                                });
+
+                            _.each(views, function (view, id) {
+                                var parent = view.getParent();
+
+                                if (parent) {
+                                    parent.remove(view);
+                                }
+
+                                this.removeView(id);
+
+                                complete();
+
+                                parent = view = id = null;
+                            }, this);
+
+                            this.destroy();
+                        }
+
+                    });
+                },
                 construction.constructor || function () {}
-            )
+            ),
+
+            /**
+             * Add a disposal callback
+             *
+             * @param {Function} callback [description]
+             */
+            addDisposeCallback : function (callback, context) {
+                this.disposeCallbacks.push(_(callback).bind(context));
+
+                callback = context = null;
+            },
+
+            /**
+             * Create a controller that will
+             * be associated to this controller;
+             * This allows us to keep track and
+             * dispose of composite controllers
+             * more easily
+             *
+             * @return {CompositeController} Composite controller
+             */
+            createRelatedController : function () {
+                var relController = Alloy.createController.apply(Alloy, arguments);
+
+                this.relatedControllers.push(relController);
+
+                return relController;
+            }
 
         });
 
-        return require('lib/carbonfiber/util.stapes').subclass(construction, classOnly);
+        return new (require('lib/carbonfiber/util.stapes').subclass(construction, classOnly));
     };
 
     /**
@@ -115,24 +231,31 @@
 
         return function () {
             if (! _.has(self.events, eventName)) {
-                throw 'The event [' + eventName + '] is not found.';
+                Alloy.CarbonFiber.log('The Alloy event [' + eventName + '] could not be found.')
             }
+            else {
+                var callback = self.events[eventName];
 
-            var callback = self.events[eventName];
-
-            return callback.apply(callback, arguments);
+                return callback.apply(callback, arguments);
+            }
         };
     };
 
     /**
      * Remove an event from the global event list
      *
-     * @param  {String} eventName Event to remove
+     * @param  {String|Array} events Events to remove from listing
      */
-    AlloyExtended.prototype.clearEvent = function (eventName) {
-        this.events = _.reject(this.events, function (event) {
-            return event === eventName;
-        });
+    AlloyExtended.prototype.clearEvent = function (events) {
+        if (_.isArray(events)) {
+            this.events = _.omit(this.events, events);
+        }
+        else if (_.isString(events)) {
+            this.events = _.omit(this.events, [ events ]);
+        }
+        else {
+            throw 'Event must either be an Array or String';
+        }
     };
 
     /**
