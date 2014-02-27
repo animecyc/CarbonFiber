@@ -195,17 +195,19 @@
      * @param {Object}   props  Properties to apply
      */
     AlloyExtended.prototype.applyProperties = function (proxy, props) {
-        if (! _.isObject(props)) {
-            throw 'Supplied properties must be an object';
-        }
+        if (proxy) {
+            if (! _.isObject(props)) {
+                throw 'Supplied properties must be an object';
+            }
 
-        if (this.platform.isIOS()) {
-            proxy.applyProperties(props);
-        }
-        else {
-            _.each(props, function (value, key) {
-                proxy[key] = value;
-            });
+            if (this.platform.isIOS()) {
+                proxy.applyProperties(props);
+            }
+            else {
+                _.each(props, function (value, key) {
+                    proxy[key] = value;
+                });
+            }
         }
     };
 
