@@ -115,6 +115,137 @@
     };
 
     /**
+     * Add controller view to the content
+     * view -- just a pass to add the controllers
+     * top-level view
+     *
+     * @param {Controller} controller Controller to pull view from
+     */
+    Context.prototype.addContentView = function (controller) {
+        this.getContentView().add(controller.getView());
+    };
+
+    /**
+     * Add controller view to the behind
+     * view -- just a pass to add the controllers
+     * top-level view
+     *
+     * @param {Controller} controller Controller to pull view from
+     */
+    Context.prototype.addBehindView = function (controller) {
+        this.getBehindView().add(controller.getView());
+    };
+
+    /**
+     * Remove controller view from the content
+     * view -- just a pass to add the controllers
+     * top-level view
+     *
+     * @param {Controller} controller Controller to pull view from
+     */
+    Context.prototype.removeContentView = function (controller) {
+        this.getContentView().remove(controller.getView());
+    };
+
+    /**
+     * Remove controller view from the behind
+     * view -- just a pass to add the controllers
+     * top-level view
+     *
+     * @param {Controller} controller Controller to pull view from
+     */
+    Context.prototype.removeBehindView = function (controller) {
+        this.getBehindView().remove(controller.getView());
+    };
+
+    /**
+     * Create an icon used for navigation
+     *
+     * @param  {String}     icon         Icon to use
+     * @param  {Object}     subscription Events to subscribe to
+     * @return {Ti.UI.View}              The resultant icon
+     */
+    Context.prototype.createNavIcon = function (icon, subscription) {
+        var $ = this.getWidgetController(),
+            iconContainer = $.UI.create('Ti.UI.View', {
+                classes : 'icon-container'
+            }),
+            iconView = $.UI.create('Alloy.CarbonFiber.iconic.Icon', {
+                icon : icon,
+                classes : 'icon'
+            });
+
+        iconContainer.add(iconView);
+
+        if (_.isObject(subscription)) {
+            Alloy.CarbonFiber.subscribe(iconContainer, subscription);
+        }
+
+        return iconContainer;
+    };
+
+    /**
+     * Set the left navigation icon
+     *
+     * @param {String} icon         Icon to use
+     * @param {Object} subscription Events to subscribe to
+     */
+    Context.prototype.setLeftNavIcon = function (icon, subscription) {
+        var iconView = this.createNavIcon(icon, subscription);
+
+        if (Alloy.CarbonFiber.platform.isIOS()) {
+            this.getContentView()
+                .setLeftNavButton(iconView);
+        }
+        else {
+            iconView.setLeft(0);
+
+            this.getWidgetController()
+                .getView('navigationBar')
+                .add(iconView);
+        }
+    };
+
+    /**
+     * Set the right navigation icon
+     *
+     * @param {String} icon         Icon to use
+     * @param {Object} subscription Events to subscribe to
+     */
+    Context.prototype.setRightNavIcon = function (icon, subscription) {
+        var iconView = this.createNavIcon(icon, subscription);
+
+        if (Alloy.CarbonFiber.platform.isIOS()) {
+            this.getContentView()
+                .setLeftNavButton(iconView);
+        }
+        else {
+            iconView.setRight(0);
+
+            this.getWidgetController()
+                .getView('navigationBar')
+                .add(iconView);
+        }
+    };
+
+    /**
+     * Set the title control
+     *
+     * @param {Ti.UI.View} view View to set
+     */
+    Context.prototype.setTitleControl = function (view) {
+        if (Alloy.CarbonFiber.platform.isIOS()) {
+            this.getContentView()
+                .setTitleControl(view);
+        }
+        else {
+            this.getWidgetController()
+                .getView('navigationBar')
+                .add(view);
+        }
+    };
+
+    /**
      * Get the draggable view
      *
      * @return {Ti.UI.View}  Carbon's draggable view

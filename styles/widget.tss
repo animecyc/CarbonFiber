@@ -25,11 +25,6 @@
 	zIndex : 0
 },
 
-".behind": {
-	backgroundColor : "#292929",
-	zIndex : 0
-},
-
 "#navigationBar[platform=android]": {
     zIndex : 1,
     top : 0,
@@ -50,30 +45,21 @@
 
 ".icon": {
     color : "#FFFFFF",
-    textAlign : "center",
-    width : 25,
+    textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+    width : Ti.UI.SIZE,
+    height : Ti.UI.FILL,
     font : {
         fontSize : 22
     }
 },
 
-".icon-menu": {
-    icon : 'menu'
+".icon-container": {
+    height : Ti.UI.FILL
 },
 
-".icon-menu-container[platform=android]": {
-    height : 63,
-    width : Ti.UI.SIZE,
-    left : 0,
-    top : 0
+".icon-container[platform=android]": {
+    width : 50
 },
-
-".icon-menu[platform=android]": {
-    left : 20,
-    right : 20,
-    top : 0,
-    height : 63
-}
 
 ".draggable": {
 	opacity : 1,
@@ -86,8 +72,7 @@
 	}
 },
 
-"#logo": {
-    height : 36,
-    left : 50,
-    right : 50
-}
+".behind": {
+    backgroundColor : "#292929",
+    zIndex : 0
+},

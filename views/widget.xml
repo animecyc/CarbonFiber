@@ -6,13 +6,7 @@
 		</View>
 
 		<View id="contentWrapper" class="draggable" module="ti.draggable">
-			<View id="navigationBar">
-				<ImageView id="logo" />
-				<View class="icon-menu-container" onClick="Alloy.getEvent('revealMenu')">
-					<Icon ns="Alloy.CarbonFiber.iconic" class="icon icon-menu" />
-				</View>
-			</View>
-
+			<View id="navigationBar" />
 			<View id="content" />
 		</View>
 	</Window>
@@ -20,16 +14,7 @@
 
 	<!-- BOF: iOS -->
 	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable">
-		<Window id="content">
-			<LeftNavButton>
-				<Icon ns="Alloy.CarbonFiber.iconic" class="icon icon-menu" onClick="Alloy.getEvent('revealMenu')" />
-			</LeftNavButton>
-			<RightNavButton>
-				<View class="icon" />
-			</RightNavButton>
-
-			<ImageView id="logo" />
-		</Window>
+		<Window id="content" />
 	</NavigationWindow>
 
 	<Window id="behind" platform="ios" class="behind" />

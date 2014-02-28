@@ -9,7 +9,7 @@
 
     if (Alloy.CarbonFiber.platform.isIOS()) {
         Alloy.CarbonFiber.subscribe($.behind, {
-            'open' : function () {
+            open : function () {
                 $.carbon.open();
             }
         });
