@@ -17,7 +17,6 @@
          * @param  {String} method
          * @param  {Model} model
          * @param  {Object} options
-         * @return undefined
          */
         sync : function (method, model, options) {
             if (! _.has(_, 'str')) {
@@ -106,7 +105,6 @@
          *
          * @param  {Model} model
          * @param  {String} method
-         * @return undefined
          */
         request : function (model, method) {
             var self = this,
@@ -122,8 +120,6 @@
 
                     /**
                      * Success
-                     *
-                     * @return undefined
                      */
                     onload : function () {
                         var resp;
@@ -142,7 +138,6 @@
                      * Error
                      *
                      * @param  {Event} errorEvent
-                     * @return undefined
                      */
                     onerror : function (errorEvent) {
                         Alloy.CarbonFiber.log('Remote - Request did not complete successfully (' + xhr.status + ').', self.indentLog);
@@ -216,7 +211,6 @@
          * Build and return the URL
          *
          * @param  {Model} model
-         * @return undefined
          */
         getUrl : function (model) {
             var url = _.str.rtrim(this.url || Alloy.Globals.API_URL, '/'),
