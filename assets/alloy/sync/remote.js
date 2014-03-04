@@ -143,7 +143,7 @@
                         Alloy.CarbonFiber.log('Remote - Request did not complete successfully (' + xhr.status + ').', self.indentLog);
                         Alloy.CarbonFiber.log('Remote - There was a problem fetching collection [' + errorEvent.error + '].', self.indentLog);
 
-                        model.trigger('error');
+                        model.trigger('error', JSON.parse(this.responseText));
                         self.options.error();
                     }
 
