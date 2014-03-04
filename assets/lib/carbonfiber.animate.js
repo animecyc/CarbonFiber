@@ -20,6 +20,8 @@
 		var self = this;
 
 		if (view && _.isObject(properties)) {
+			properties = _.extend(properties, { opaque : true, duration : 250 });
+
 			this.animator.animate(view, properties, function () {
 				if (_.isFunction(callback)) {
 					callback.call(self);
