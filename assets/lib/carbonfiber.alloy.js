@@ -18,6 +18,10 @@
      * @return {Stapes}                   The constructed subclass
      */
     AlloyExtended.prototype.composeController = function(controller, construction, classOnly) {
+        var tmpConstructor = construction.constructor;
+
+        delete construction.constructor;
+
         _.extend(construction, {
 
             /**
@@ -41,84 +45,87 @@
              * ensure that the class instance
              * gets injected into an Alloy controller
              */
-            constructor : _.compose(
-                function () {
-                    _.extend(controller, {
+            constructor : function () {
+                _.extend(controller, {
 
-                        /**
-                         * Constructed Stapes class
-                         *
-                         * @type {Stapes}
-                         */
-                        klass : this,
+                    /**
+                     * Constructed Stapes class
+                     *
+                     * @type {Stapes}
+                     */
+                    klass : this,
 
-                        /**
-                         * Properly destroy our composite controller
-                         */
-                        dispose : function () {
-                            Alloy.CarbonFiber.log('Disposing Controller [' + this.__controllerPath + ']...');
+                    /**
+                     * Properly destroy our composite controller
+                     */
+                    dispose : function () {
+                        Alloy.CarbonFiber.log('Disposing Controller [' + this.__controllerPath + ']...');
 
-                            if (_.has(this, 'klass')) {
-                                if (this.klass.disposeCallbacks) {
-                                    _.each(this.klass.disposeCallbacks, function (callback) {
-                                        callback();
+                        if (_.has(this, 'klass')) {
+                            if (this.klass.disposeCallbacks) {
+                                _.each(this.klass.disposeCallbacks, function (callback) {
+                                    callback();
 
-                                        callback = null;
-                                    });
-
-                                    delete this.klass.disposeCallbacks;
-                                }
-
-                                if (this.klass.relatedControllers) {
-                                    _.each(this.klass.relatedControllers, function (related) {
-                                        if (_.has(related, 'dispose') && _.isFunction(related.dispose)) {
-                                            related.dispose();
-                                        }
-
-                                        related = null;
-                                    });
-
-                                    delete this.klass.relatedControllers;
-                                }
-
-                                this.klass.remove(function () {
-                                    return true;
-                                }, true);
-
-                                delete this.klass;
-                            }
-
-                            var view = this.getView(),
-                                views = this.getViews(),
-                                complete = _.after(views.length, function () {
-                                    if (view.getParent()) {
-                                        view.parent.remove(view);
-                                    }
-
-                                    view = views = null;
+                                    callback = null;
                                 });
 
-                            _.each(views, function (view, id) {
-                                var parent = view.getParent();
+                                delete this.klass.disposeCallbacks;
+                            }
 
-                                if (parent) {
-                                    parent.remove(view);
-                                }
+                            if (this.klass.relatedControllers) {
+                                _.each(this.klass.relatedControllers, function (related) {
+                                    if (_.has(related, 'dispose') && _.isFunction(related.dispose)) {
+                                        related.dispose();
+                                    }
 
-                                this.removeView(id);
+                                    related = null;
+                                });
 
-                                complete();
+                                delete this.klass.relatedControllers;
+                            }
 
-                                parent = view = id = null;
-                            }, this);
+                            this.klass.remove(function () {
+                                return true;
+                            }, true);
 
-                            this.destroy();
+                            delete this.klass;
                         }
 
-                    });
-                },
-                construction.constructor || function () {}
-            ),
+                        var view = this.getView(),
+                            views = this.getViews(),
+                            complete = _.after(views.length, function () {
+                                if (view.getParent()) {
+                                    view.parent.remove(view);
+                                }
+
+                                view = views = null;
+                            });
+
+                        _.each(views, function (view, id) {
+                            var parent = view.getParent();
+
+                            if (parent) {
+                                parent.remove(view);
+                            }
+
+                            this.removeView(id);
+
+                            complete();
+
+                            parent = view = id = null;
+                        }, this);
+
+                        this.destroy();
+                    }
+
+                });
+
+                if (_.isFunction(tmpConstructor)) {
+                    tmpConstructor.apply(this, arguments);
+                }
+
+                tmpConstructor = null;
+            },
 
             /**
              * Add a disposal callback
@@ -150,7 +157,9 @@
 
         });
 
-        return new (require('lib/carbonfiber/util.stapes').subclass(construction, classOnly));
+        var Composition = require('lib/carbonfiber/util.stapes').subclass(construction, classOnly);
+
+        return new Composition();
     };
 
     /**
@@ -235,7 +244,7 @@
 
         return function () {
             if (! _.has(self.events, eventName)) {
-                Alloy.CarbonFiber.log('The Alloy event [' + eventName + '] could not be found.')
+                Alloy.CarbonFiber.log('The Alloy event [' + eventName + '] could not be found.');
             }
             else {
                 var callback = self.events[eventName];
