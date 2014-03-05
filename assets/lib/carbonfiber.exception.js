@@ -39,24 +39,21 @@
 		handleException : function (type, exception) {
 			if (Alloy.CarbonFiber.platform.isIOS()) {
 				if (! (exception instanceof Error)) {
-					this.handleException('argument', new Error('Type of exception must be Error, ' + (typeof exception) + ' supplied'));
-
-					return;
+					throw this.handleException('argument', new Error('Type of exception must be Error, ' + (typeof exception) + ' supplied'));
 				}
 
-				var name = _.has(this.exceptions, type) ? this.exceptions[type] : 'ErrorException',
-					error = new CarbonFiberException(name, exception);
+				var name = _.has(this.exceptions, type) ? this.exceptions[type] : 'ErrorException';
 
-				if (Alloy.CFG.build === 'development') {
-					throw error;
-				}
-				else {
-					// NOOP (for the time being)
-				}
+				return new CarbonFiberException(name, exception);
 			}
-			else {
-				throw exception;
-			}
+
+			console.error(
+				'------ BOF: Exception Stack ------\n',
+				exception.stack,
+				'\n------ EOF: Exception Stack ------'
+			);
+
+			return exception;
 		}
 
 	};
