@@ -29,7 +29,7 @@
 		return stack;
 	};
 
-	exports = module.exports = {
+	exports = module.exports = _.extend(module.exports, {
 
 		exceptions : {
 			'json' : 'JSONParseException',
@@ -56,5 +56,5 @@
 			return exception;
 		}
 
-	};
+	});
 }).call(this);
