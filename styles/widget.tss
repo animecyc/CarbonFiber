@@ -1,5 +1,5 @@
-"Window[formFactor=handheld]" : {
-    orientationModes : [ Ti.UI.PORTRAIT ]
+"Window[formFactor=handheld]": {
+    orientationModes : [Ti.UI.PORTRAIT]
 },
 
 "Window[platform=ios]": {
@@ -75,4 +75,4 @@
 ".behind": {
     backgroundColor : "#292929",
     zIndex : 0
-},
+}
