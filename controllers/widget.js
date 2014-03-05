@@ -7,6 +7,14 @@
 
     Alloy.CarbonFiber.setWidgetController($);
 
+    Alloy.CarbonFiber.subscribe($.carbon, {
+
+        open : function () {
+            Ti.App.fireEvent('carbonfiber:ready');
+        }
+
+    });
+
     if (Alloy.CarbonFiber.platform.isIOS()) {
         Alloy.CarbonFiber.subscribe($.behind, {
             open : function () {
