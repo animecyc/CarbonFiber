@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    exports = module.exports = {
+    exports = module.exports = _.extend(module.exports, {
 
         /**
          * Number of spaces to indent
@@ -229,5 +229,5 @@
 
             return _.str.sprintf('%s/%s%s', url, this.endpoint + appends, this.getQueryString());
         }
-    };
+    });
 }).call(this);
