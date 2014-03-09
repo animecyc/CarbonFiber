@@ -144,7 +144,7 @@
                         Alloy.CarbonFiber.log('Remote - There was a problem fetching collection [' + errorEvent.error + '].', self.indentLog);
 
                         model.trigger('error', JSON.parse(this.responseText));
-                        self.options.error();
+                        self.options.error(JSON.parse(this.responseText));
                     }
 
                 });
