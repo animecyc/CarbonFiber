@@ -7,9 +7,15 @@
 		this.line = exception.line;
 		this.message = exception.message + ' on line ' + this.line + ' in file ' + this.file;
 		this.backtrace = exception.backtrace;
+
+		this.handleExceptionForGoogle(this.message);
 	}
 
 	CarbonFiberException.prototype = Error.prototype;
+
+	CarbonFiberException.prototype.handleExceptionForGoogle = function (message) {
+		Alloy.Globals.Telemundo.googleTrackException(message);
+	}
 
 	CarbonFiberException.prototype.getStackTrace = function () {
 		var stack = _.map(this.backtrace.split('\n'), function (trace) {
@@ -52,6 +58,8 @@
 				exception.stack,
 				'\n------ EOF: Exception Stack ------'
 			);
+
+			new CarbonFiberException(name, exception);
 
 			return exception;
 		}
