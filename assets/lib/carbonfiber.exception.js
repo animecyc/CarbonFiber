@@ -3,7 +3,7 @@
 
 	function CarbonFiberException(name, exception) {
 		this.name = name;
-		this.file = exception.sourceURL.replace(/(.*)\.(app|apk)/, '');
+		this.file = exception.sourceURL ? exception.sourceURL.replace(/(.*)\.(app|apk)/, '') : '';
 		this.line = exception.line;
 		this.message = exception.message + ' on line ' + this.line + ' in file ' + this.file;
 		this.backtrace = exception.backtrace;
@@ -42,29 +42,34 @@
 		},
 
 		handleException : function (type, exception) {
-			var name = _.has(this.exceptions, type) ? this.exceptions[type] : 'ErrorException';
+			var name = _.has(this.exceptions, type) ? this.exceptions[type] : 'ErrorException',
+				CFEXC;
 
 			if (Alloy.CarbonFiber.platform.isIOS()) {
 				if (! (exception instanceof Error)) {
 					throw this.handleException('argument', new Error('Type of exception must be Error, ' + (typeof exception) + ' supplied'));
 				}
 
-				return new CarbonFiberException(name, exception);
+				CFEXC = new CarbonFiberException(name, exception);
 			}
+			else {
+				console.error(
+					'------ BOF: Exception Stack ------\n',
+					exception.stack,
+					'\n------ EOF: Exception Stack ------'
+				);
 
-			console.error(
-				'------ BOF: Exception Stack ------\n',
-				exception.stack,
-				'\n------ EOF: Exception Stack ------'
-			);
-
-			new CarbonFiberException(name, exception);
+				CFEXC = new CarbonFiberException(name, exception);
+			}
 
 			if (_.isFunction(this.exceptionCallback)) {
 				this.exceptionCallback(exception.message);
 			}
+			else if(_.has(Alloy.Globals, 'CarbonFiberExceptionCallback')) {
+				Alloy.Globals.CarbonFiberExceptionCallback(exception.message);
+			}
 
-			return exception;
+			return CFEXC;
 		}
 
 	});
