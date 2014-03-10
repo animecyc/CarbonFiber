@@ -86,7 +86,7 @@
      */
     Context.prototype.getStatusBar = function () {
         if (this.platform.isIOS()) {
-            return require('com.animecyc.statusbar').getStatusBar({
+            return require('com.animecyc.statusbar').createOrGetStatusBar({
                 opacity : 0,
                 backgroundColor : '#1F1F1F'
             });
