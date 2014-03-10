@@ -7,15 +7,14 @@
 		this.line = exception.line;
 		this.message = exception.message + ' on line ' + this.line + ' in file ' + this.file;
 		this.backtrace = exception.backtrace;
-
-		this.handleExceptionForGoogle(this.message);
+		this.exceptionCallback = false;
 	}
 
 	CarbonFiberException.prototype = Error.prototype;
 
-	CarbonFiberException.prototype.handleExceptionForGoogle = function (message) {
-		Alloy.Globals.Telemundo.googleTrackException(message);
-	}
+	CarbonFiberException.prototype.setExceptionCallback = function (callback) {
+		this.exceptionCallback = callback;
+	};
 
 	CarbonFiberException.prototype.getStackTrace = function () {
 		var stack = _.map(this.backtrace.split('\n'), function (trace) {
@@ -43,12 +42,12 @@
 		},
 
 		handleException : function (type, exception) {
+			var name = _.has(this.exceptions, type) ? this.exceptions[type] : 'ErrorException';
+
 			if (Alloy.CarbonFiber.platform.isIOS()) {
 				if (! (exception instanceof Error)) {
 					throw this.handleException('argument', new Error('Type of exception must be Error, ' + (typeof exception) + ' supplied'));
 				}
-
-				var name = _.has(this.exceptions, type) ? this.exceptions[type] : 'ErrorException';
 
 				return new CarbonFiberException(name, exception);
 			}
@@ -60,6 +59,10 @@
 			);
 
 			new CarbonFiberException(name, exception);
+
+			if (_.isFunction(this.exceptionCallback)) {
+				this.exceptionCallback(exception.message);
+			}
 
 			return exception;
 		}
