@@ -17,16 +17,14 @@
 	 * @param {Function}   callback   Function to call when animation completes
 	 */
 	CarbonAnimation.prototype.animate = function (view, properties, callback) {
-		var self = this;
-
 		if (view && _.isObject(properties)) {
-			properties = _.extend(properties, { opaque : true, duration : 250 });
+			properties = _.extend({ opaque : true, duration : 350 }, properties);
 
-			this.animator.animate(view, properties, function () {
+			this.animator.animate(view, properties, _.bind(function () {
 				if (_.isFunction(callback)) {
-					callback.call(self);
+					callback.call(this);
 				}
-			});
+			}, this));
 		}
 	};
 
