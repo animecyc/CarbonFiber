@@ -3,6 +3,7 @@
 
     var Platform = function () {
         this.name = Ti.Platform.osname;
+        this.version = Ti.Platform.version;
         this.isTablet = Alloy.isTablet;
         this.measurement = require('alloy/measurement');
     };
@@ -42,6 +43,15 @@
     Platform.prototype.isIOS = function () {
         return this.name === 'iphone' || this.name === 'ipad';
     };
+
+    /**
+     * Get version number
+     *
+     * @return {Number}
+     */
+    Platform.prototype.getVersion = function () {
+        return parseInt(this.version, 10);
+    },
 
     /**
      * Alias; Convert DiP to PX
