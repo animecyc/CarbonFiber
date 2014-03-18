@@ -50,7 +50,7 @@
      * @return {Number}
      */
     Platform.prototype.getVersion = function () {
-        return parseInt(this.version, 10);
+        return parseInt(this.version.split('.')[0], 10);
     },
 
     /**
