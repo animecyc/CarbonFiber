@@ -3,6 +3,13 @@
 
 	var Context = function () {
 		this.contexts = [];
+
+        if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
+            this.statusbar = require('com.animecyc.statusbar').createOrGetStatusBar({
+                opacity : 0,
+                backgroundColor : '#1F1F1F'
+            });
+        }
 	};
 
     /**
@@ -85,11 +92,8 @@
      * @return {Ti.UI.View}  The status bar (iOS only)
      */
     Context.prototype.getStatusBar = function () {
-        if (this.platform.isIOS()) {
-            return require('com.animecyc.statusbar').createOrGetStatusBar({
-                opacity : 0,
-                backgroundColor : '#1F1F1F'
-            });
+        if (this.statusbar) {
+            return this.statusbar;
         }
         else {
             throw 'Platform [' + Ti.Platform.osname + '] does not support [getStatusBar]';
