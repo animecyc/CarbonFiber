@@ -26,7 +26,8 @@
             up         : 0xe814,
             twitter    : 0xe80A,
             facebook   : 0xe80B,
-            close      : 0xe80C
+            close      : 0xe80C,
+            refresh    : 0xe80D
         };
     };
 
