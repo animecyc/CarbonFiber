@@ -25,8 +25,12 @@
                         callback.call(scope, event);
                     });
                 });
+
+                delete subscription[events];
             });
         }
+
+        proxy = subscription = context = null;
     };
 
     /**
