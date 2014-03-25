@@ -115,6 +115,10 @@
                             parent = view = id = null;
                         }, this);
 
+                        if (_.has(this, 'dereference')) {
+                            this.dereference();
+                        }
+
                         this.destroy();
                     }
 
