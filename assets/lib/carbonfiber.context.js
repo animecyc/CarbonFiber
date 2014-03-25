@@ -221,7 +221,7 @@
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
             this.getContentView()
-                .setLeftNavButton(iconView);
+                .setRightNavButton(iconView);
         }
         else {
             iconView.setRight(0);
