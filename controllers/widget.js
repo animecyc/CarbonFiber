@@ -15,18 +15,6 @@
 
     });
 
-    if (Alloy.isTablet) {
-        var launchedLandscape = Ti.Gesture.isLandscape();
-
-        Ti.Gesture.addEventListener('orientationchange', function () {
-
-            _.defer(function () {
-                $.content.setWidth(launchedLandscape ? Ti.Platform.displayCaps.platformHeight : Ti.Platform.displayCaps.platformWidth);
-            });
-
-        });
-    }
-
     if (Alloy.CarbonFiber.platform.isIOS()) {
         Alloy.CarbonFiber.subscribe($.behind, {
             open : function () {

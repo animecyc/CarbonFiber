@@ -43,9 +43,12 @@
     backgroundColor : 'red'
 },
 
+"#carbon[platform=ios]": {
+    borderRadius: 5
+},
+
 "#content": {
-    left : 0,
-    width : Ti.Platform.displayCaps.platformWidth
+    left : 0
 },
 
 ".icon": {
