@@ -43,6 +43,11 @@
     backgroundColor : 'red'
 },
 
+"#content": {
+    left : 0,
+    width : Ti.Platform.displayCaps.platformWidth
+},
+
 ".icon": {
     color : "#FFFFFF",
     textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
@@ -62,6 +67,8 @@
 },
 
 ".draggable": {
+    left : 0,
+    right : 0,
 	opacity : 1,
 	backgroundColor : '#FFFFFF',
 	draggableConfig : {
