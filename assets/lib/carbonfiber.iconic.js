@@ -27,7 +27,9 @@
             twitter    : 0xe80A,
             facebook   : 0xe80B,
             close      : 0xe80C,
-            refresh    : 0xe80D
+            refresh    : 0xe80D,
+            email    : 0xe80E,
+            sms      : 0xe80F,
         };
     };
 
