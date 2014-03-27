@@ -1,5 +1,5 @@
 "Window[formFactor=handheld]": {
-    orientationModes : [Ti.UI.PORTRAIT]
+    orientationModes : [ Ti.UI.PORTRAIT ]
 },
 
 "Window[platform=ios]": {

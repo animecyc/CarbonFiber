@@ -1,10 +1,45 @@
 (function () {
     'use strict';
 
-    var AlloyExtended = function () {
-        this.platform = require('lib/carbonfiber/carbonfiber.platform');
-        this.events = {};
-        this.controllers = {};
+    var orientationCallbacks = [],
+        AlloyExtended = function () {
+            this.platform = require('lib/carbonfiber/carbonfiber.platform');
+            this.events = {};
+            this.controllers = {};
+
+            Ti.Gesture.addEventListener('orientationchange', function (orientationChangeEvent) {
+                _.each(orientationCallbacks, function (callback) {
+                    callback(orientationChangeEvent);
+                });
+            });
+        };
+
+    /**
+     * Add an orientation event
+     *
+     * @param {Function} callback  The function to add
+     */
+    AlloyExtended.prototype.addOrientationCallback = function (callback) {
+        if (_.isFunction(callback)) {
+            orientationCallbacks.unshift(callback);
+        }
+    };
+
+    /**
+     * Remove an orientation event
+     *
+     * @param  {Function} callbackRef  The function to remove
+     */
+    AlloyExtended.prototype.removeOrientationCallback = function (callbackRef) {
+        if (_.isFunction(callbackRef)) {
+            var callbackIndex = orientationCallbacks.indexOf(callbackRef);
+
+            if (callbackIndex != -1) {
+                delete orientationCallbacks[callbackIndex];
+            }
+
+            orientationCallbacks = _.filter(orientationCallbacks, _.isFunction);
+        }
     };
 
     /**
