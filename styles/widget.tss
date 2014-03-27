@@ -43,10 +43,6 @@
     backgroundColor : 'red'
 },
 
-"#carbon[platform=ios]": {
-    borderRadius: 5
-},
-
 "#content": {
     left : 0
 },
@@ -83,6 +79,7 @@
 },
 
 ".behind": {
+    supportsStatusbar : false,
     backgroundColor : "#292929",
     zIndex : 0
 }
