@@ -198,7 +198,7 @@
         var iconView = this.createNavIcon(icon, subscription);
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
-            this.getContentView()
+            this.getDraggableView().window
                 .setLeftNavButton(iconView);
         }
         else {
@@ -220,7 +220,7 @@
         var iconView = this.createNavIcon(icon, subscription);
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
-            this.getContentView()
+            this.getDraggableView().window
                 .setRightNavButton(iconView);
         }
         else {
@@ -239,7 +239,7 @@
      */
     Context.prototype.setTitleControl = function (view) {
         if (Alloy.CarbonFiber.platform.isIOS()) {
-            this.getContentView()
+            this.getDraggableView().window
                 .setTitleControl(view);
         }
         else {
