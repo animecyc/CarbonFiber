@@ -9,7 +9,9 @@
 
             Ti.Gesture.addEventListener('orientationchange', function (orientationChangeEvent) {
                 _.each(orientationCallbacks, function (callback) {
-                    callback(orientationChangeEvent);
+                    _.defer(function () {
+                        callback(orientationChangeEvent);
+                    });
                 });
             });
         };
