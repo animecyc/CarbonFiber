@@ -9,6 +9,16 @@
     };
 
     /**
+     * Determine if screen is high density using iPad2,1
+     * as a reference
+     *
+     * @return {Boolean}
+     */
+    Platform.prototype.isHighDensity = function () {
+        return Ti.Platform.displayCaps.dpi > 160;
+    };
+
+    /**
      * Determine if platform is a handset
      *
      * @return {Boolean}
