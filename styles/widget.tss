@@ -48,6 +48,7 @@
 },
 
 ".icon": {
+    touchEnabled : false,
     color : "#FFFFFF",
     textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
     width : Ti.UI.SIZE,
@@ -58,7 +59,8 @@
 },
 
 ".icon-container": {
-    height : 40
+    height : 40,
+    width : 40
 },
 
 ".icon-container[platform=android]": {
@@ -79,7 +81,6 @@
 },
 
 ".behind": {
-    supportsStatusbar : false,
     backgroundColor : "#292929",
     zIndex : 0
 }

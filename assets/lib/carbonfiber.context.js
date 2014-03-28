@@ -3,13 +3,6 @@
 
 	var Context = function () {
 		this.contexts = [];
-
-        if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
-            this.statusbar = require('com.animecyc.statusbar').createOrGetStatusBar({
-                opacity : 0,
-                backgroundColor : '#1F1F1F'
-            });
-        }
 	};
 
     /**
@@ -83,20 +76,6 @@
     };
 
     /**
-     * Get or create the status bar
-     *
-     * @return {Ti.UI.View}  The status bar (iOS only)
-     */
-    Context.prototype.getStatusBar = function () {
-        if (this.statusbar) {
-            return this.statusbar;
-        }
-        else {
-            throw 'Platform [' + Ti.Platform.osname + '] does not support [getStatusBar]';
-        }
-    };
-
-    /**
      * Get the content view
      *
      * @return {Ti.UI.View}  The Carbon content view
@@ -165,15 +144,19 @@
      * @param  {Object}     subscription Events to subscribe to
      * @return {Ti.UI.View}              The resultant icon
      */
-    Context.prototype.createNavIcon = function (icon, subscription) {
+    Context.prototype.createNavIcon = function (icon, subscription, opts) {
+        opts = opts || {};
+
+        _.extend(opts, {
+            icon : icon,
+            classes : 'icon'
+        });
+
         var $ = this.getWidgetController(),
             iconContainer = $.UI.create('Ti.UI.View', {
                 classes : 'icon-container'
             }),
-            iconView = $.UI.create('Alloy.CarbonFiber.iconic.Icon', {
-                icon : icon,
-                classes : 'icon'
-            });
+            iconView = $.UI.create('Alloy.CarbonFiber.iconic.Icon', opts);
 
         iconContainer.add(iconView);
 
@@ -191,7 +174,9 @@
      * @param {Object} subscription Events to subscribe to
      */
     Context.prototype.setLeftNavIcon = function (icon, subscription) {
-        var iconView = this.createNavIcon(icon, subscription);
+        var iconView = this.createNavIcon(icon, subscription, {
+            left : 0
+        });
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
             this.getDraggableView().window
@@ -213,7 +198,9 @@
      * @param {Object} subscription Events to subscribe to
      */
     Context.prototype.setRightNavIcon = function (icon, subscription) {
-        var iconView = this.createNavIcon(icon, subscription);
+        var iconView = this.createNavIcon(icon, subscription, {
+            right : 0
+        });
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
             this.getDraggableView().window
