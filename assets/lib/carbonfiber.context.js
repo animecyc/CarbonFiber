@@ -170,17 +170,23 @@
     /**
      * Set the left navigation icon
      *
-     * @param {String} icon         Icon to use
-     * @param {Object} subscription Events to subscribe to
+     * @param {String}  icon         Icon to use
+     * @param {Boolean} window       Window to use
+     * @param {Object}  subscription Events to subscribe to
      */
-    Context.prototype.setLeftNavIcon = function (icon, subscription) {
+    Context.prototype.setLeftNavIcon = function (icon, subscription, window) {
         var iconView = this.createNavIcon(icon, subscription, {
             left : 0
         });
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
-            this.getDraggableView().window
-                .setLeftNavButton(iconView);
+            if (window) {
+                window.setLeftNavButton(iconView);
+            }
+            else {
+                this.getDraggableView().window
+                    .setLeftNavButton(iconView);
+            }
         }
         else {
             iconView.setLeft(0);
@@ -194,17 +200,23 @@
     /**
      * Set the right navigation icon
      *
-     * @param {String} icon         Icon to use
-     * @param {Object} subscription Events to subscribe to
+     * @param {String}  icon         Icon to use
+     * @param {Boolean} window       Window to use
+     * @param {Object}  subscription Events to subscribe to
      */
-    Context.prototype.setRightNavIcon = function (icon, subscription) {
+    Context.prototype.setRightNavIcon = function (icon, subscription, window) {
         var iconView = this.createNavIcon(icon, subscription, {
             right : 0
         });
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
-            this.getDraggableView().window
-                .setRightNavButton(iconView);
+            if (window) {
+                window.setRightNavButton(iconView);
+            }
+            else {
+                this.getDraggableView().window
+                    .setRightNavButton(iconView);
+            }
         }
         else {
             iconView.setRight(0);
