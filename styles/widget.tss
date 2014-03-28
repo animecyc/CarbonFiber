@@ -58,7 +58,7 @@
 },
 
 ".icon-container": {
-    height : Ti.UI.FILL
+    height : 40
 },
 
 ".icon-container[platform=android]": {

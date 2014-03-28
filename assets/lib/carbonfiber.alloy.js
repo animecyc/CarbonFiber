@@ -95,7 +95,7 @@
                     /**
                      * Properly destroy our composite controller
                      */
-                    dispose : function () {
+                    dispose : function (disposeCompleted) {
                         Alloy.CarbonFiber.log('Disposing Controller [' + this.__controllerPath + ']...');
 
                         if (_.has(this, 'klass')) {
@@ -128,28 +128,14 @@
                             delete this.klass;
                         }
 
-                        var view = this.getView(),
-                            views = this.getViews(),
-                            complete = _.after(views.length, function () {
-                                if (view.getParent()) {
-                                    view.parent.remove(view);
-                                }
+                        var view = this.getView();
 
-                                view = views = null;
-                            });
+                        if (view && view.getParent()) {
+                            view.parent.remove(view);
+                        }
 
-                        _.each(views, function (view, id) {
-                            var parent = view.getParent();
-
-                            if (parent) {
-                                parent.remove(view);
-                            }
-
+                        _.each(this.getViews(), function (view, id) {
                             this.removeView(id);
-
-                            complete();
-
-                            parent = view = id = null;
                         }, this);
 
                         if (_.has(this, 'dereference')) {
@@ -157,6 +143,12 @@
                         }
 
                         this.destroy();
+
+                        if (_.isFunction(disposeCompleted)) {
+                            _.defer(function () {
+                                disposeCompleted();
+                            });
+                        }
                     }
 
                 });
