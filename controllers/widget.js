@@ -10,7 +10,9 @@
     Alloy.CarbonFiber.subscribe($.carbon, {
 
         open : function () {
-            Ti.App.fireEvent('carbonfiber:ready');
+            _.defer(function () {
+                Ti.App.fireEvent('carbonfiber:ready');
+            });
         }
 
     });
