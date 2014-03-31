@@ -42,7 +42,7 @@
                  *
                  * @type {Number}
                  */
-                timeout : 8000,
+                timeout : 10000,
 
                 /**
                  * Query string parameters
@@ -109,6 +109,23 @@
         request : function (model, method) {
             var self = this,
                 url = this.getUrl(model),
+                sendRequest = _.bind(function () {
+                    Alloy.CarbonFiber.log('Remote - Opening [' + method + '] client for URL (' + url + ').', this.indentLog);
+
+                    xhr.open(method, url);
+
+                    if ((method === 'POST' || method === 'PUT') && ! _.isObject(this.options.post)) {
+                        throw 'Supplied post must be an object.';
+                    }
+                    else if (_.size(this.options.post) > 0) {
+                        Alloy.CarbonFiber.log('Remote - Sending request with parameters: \n' + JSON.stringify(this.options.post), this.indentLog);
+                    }
+                    else {
+                        Alloy.CarbonFiber.log('Remote - Sending request...', this.indentLog);
+                    }
+
+                    xhr.send(this.options.post || undefined);
+                }, this),
                 xhr = Ti.Network.createHTTPClient({
 
                     /**
@@ -131,7 +148,6 @@
                         model[model instanceof Backbone.Collection ? 'reset' : 'set'](model.parse(resp, xhr), self.options);
 
                         model.trigger('fetch', model);
-                        self.options.success();
                     },
 
                     /**
@@ -144,7 +160,26 @@
                         Alloy.CarbonFiber.log('Remote - There was a problem fetching collection [' + errorEvent.error + '].', self.indentLog);
 
                         model.trigger('error', JSON.parse(this.responseText));
-                        self.options.error(JSON.parse(this.responseText));
+
+                        if (self.options.showRestartDialog) {
+                            _.defer(function () {
+                                var restartDialog = Ti.UI.createOptionDialog({
+                                    title : 'There was a problem connecting to the server.',
+                                    options : [ 'Retry', 'Cancel' ],
+                                    cancel : 1
+                                });
+
+                                Alloy.CarbonFiber.subscribe(restartDialog, {
+                                    click : function (clickEvent) {
+                                        if (clickEvent.index === 0) {
+                                            sendRequest();
+                                        }
+                                    }
+                                });
+
+                                restartDialog.show();
+                            });
+                        }
                     }
 
                 });
@@ -162,21 +197,7 @@
                 }, this);
             }
 
-            Alloy.CarbonFiber.log('Remote - Opening [' + method + '] client for URL (' + url + ').', this.indentLog);
-
-            xhr.open(method, url);
-
-            if ((method === 'POST' || method === 'PUT') && ! _.isObject(this.options.post)) {
-                throw 'Supplied post must be an object.';
-            }
-            else if (_.size(this.options.post) > 0) {
-                Alloy.CarbonFiber.log('Remote - Sending request with parameters: \n' + JSON.stringify(this.options.post), this.indentLog);
-            }
-            else {
-                Alloy.CarbonFiber.log('Remote - Sending request...', this.indentLog);
-            }
-
-            xhr.send(this.options.post || undefined);
+            sendRequest();
         },
 
         /**

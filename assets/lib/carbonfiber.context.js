@@ -254,6 +254,15 @@
     };
 
     /**
+     * Get the wrapper view
+     *
+     * @return {Ti.UI.View}  Carbon's draggable view
+     */
+    Context.prototype.getWrapperView = function () {
+        return this.getWidgetController().wrapper;
+    };
+
+    /**
      * Set the widget controller
      *
      * @param {WidgetController} controller  The widget controller

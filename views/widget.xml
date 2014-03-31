@@ -15,7 +15,9 @@
 	<!-- BOF: iOS -->
 	<NavigationWindow id="carbon" class="draggable" platform="ios" module="ti.draggable">
 		<Window>
-			<View id="content" />
+			<View id="wrapper">
+				<View id="content" />
+			</View>
 		</Window>
 	</NavigationWindow>
 
