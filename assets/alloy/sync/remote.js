@@ -148,6 +148,8 @@
                         model[model instanceof Backbone.Collection ? 'reset' : 'set'](model.parse(resp, xhr), self.options);
 
                         model.trigger('fetch', model);
+
+                        self.options.success();
                     },
 
                     /**
@@ -160,6 +162,8 @@
                         Alloy.CarbonFiber.log('Remote - There was a problem fetching collection [' + errorEvent.error + '].', self.indentLog);
 
                         model.trigger('error', JSON.parse(this.responseText));
+
+                        self.options.error(JSON.parse(this.responseText));
 
                         if (self.options.showRestartDialog) {
                             _.defer(function () {
