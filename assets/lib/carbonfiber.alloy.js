@@ -288,6 +288,19 @@
     };
 
     /**
+     * Fire a global event
+     *
+     * @return {Function}            The event callback
+     */
+    AlloyExtended.prototype.fireEvent = function () {
+        var event = this.getEvent.call(this, arguments[0]);
+
+        if (event) {
+            event.call(this, arguments[1]);
+        }
+    };
+
+    /**
      * Remove an event from the global event list
      *
      * @param  {String|Array} events Events to remove from listing
