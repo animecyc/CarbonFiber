@@ -182,7 +182,7 @@
      */
     Context.prototype.setLeftNavIcon = function (icon, subscription, window) {
         var iconView = this.createNavIcon(icon, subscription, {
-            left : 0
+            left : Alloy.CarbonFiber.platform.isIOS() ? 0 : null
         });
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
@@ -212,7 +212,7 @@
      */
     Context.prototype.setRightNavIcon = function (icon, subscription, window) {
         var iconView = this.createNavIcon(icon, subscription, {
-            right : 0
+            right : Alloy.CarbonFiber.platform.isIOS() ? 0 : null
         });
 
         if (Alloy.CarbonFiber.platform.isIOS()) {
@@ -256,7 +256,7 @@
      * @return {Ti.UI.View}  Carbon's draggable view
      */
     Context.prototype.getDraggableView = function () {
-        return this.platform.isIOS() ? this.getWidgetController().carbon : this.getWidgetController().wrapper;
+        return this.platform.isIOS() ? this.getWidgetController().carbon : this.getWidgetController().contentWrapper;
     };
 
     /**

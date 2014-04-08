@@ -254,6 +254,30 @@
     };
 
     /**
+     * Add views to a proxy; Android doesn't
+     * support aggregate addition of views
+     *
+     * @param {Ti.UI.View} proxy Proxy to add to
+     * @param {Array}      views An array of views
+     */
+    AlloyExtended.prototype.addViews = function (proxy, views) {
+        if (proxy) {
+            if (this.platform.isIOS()) {
+                proxy.add(views);
+            }
+            else {
+                if (! _.isArray(views)) {
+                    views = [ views ];
+                }
+
+                _.each(views, function (view) {
+                    proxy.add(view);
+                });
+            }
+        }
+    };
+
+    /**
      * Create an alloy event that can be accessed
      * out of controller context (Alloy event shim)
      *

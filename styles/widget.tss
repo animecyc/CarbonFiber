@@ -17,7 +17,7 @@
 	exitOnClose : true
 },
 
-"#wrapper[platform=android]": {
+"#contentWrapper[platform=android]": {
 	zIndex : 1
 },
 
@@ -30,15 +30,6 @@
     backgroundColor : '#1A78B1'
 },
 
-"#navigationBar[platform=ios]": {
-    zIndex : 1,
-    top : 0,
-    width : Ti.UI.SIZE,
-    height : 63,
-    opacity : 1,
-    backgroundColor : 'red'
-},
-
 "#content": {
     left : 0
 },
@@ -47,8 +38,8 @@
     touchEnabled : false,
     color : "#FFFFFF",
     textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-    width : Ti.UI.SIZE,
-    height : Ti.UI.FILL,
+    width : 32,
+    height : 32,
     font : {
         fontSize : 22
     }
@@ -61,8 +52,7 @@
 
 ".icon-container[platform=android]": {
     width : 50,
-    height : 50,
-    backgroundColor : 'red'
+    height : 50
 },
 
 ".draggable": {
