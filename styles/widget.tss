@@ -17,12 +17,8 @@
 	exitOnClose : true
 },
 
-"#contentWrapper[platform=android]": {
+"#wrapper[platform=android]": {
 	zIndex : 1
-},
-
-"#contentWrapper[platform=android]": {
-	zIndex : 0
 },
 
 "#navigationBar[platform=android]": {
@@ -64,7 +60,9 @@
 },
 
 ".icon-container[platform=android]": {
-    width : 50
+    width : 50,
+    height : 50,
+    backgroundColor : 'red'
 },
 
 ".draggable": {

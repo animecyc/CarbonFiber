@@ -147,21 +147,27 @@
     Context.prototype.createNavIcon = function (icon, subscription, opts) {
         opts = opts || {};
 
-        _.extend(opts, {
-            icon : icon,
-            classes : 'icon'
-        });
-
-        var $ = this.getWidgetController(),
-            iconContainer = $.UI.create('Ti.UI.View', {
+        var controller = this.getWidgetController(),
+            iconContainer = controller.UI.create('Ti.UI.View', {
                 classes : 'icon-container'
             }),
-            iconView = $.UI.create('Alloy.CarbonFiber.iconic.Icon', opts);
+            iconView;
 
-        iconContainer.add(iconView);
+        if (icon) {
+            _.extend(opts, {
+                icon : icon,
+                classes : 'icon'
+            });
 
-        if (_.isObject(subscription)) {
-            Alloy.CarbonFiber.subscribe(iconContainer, subscription);
+            iconView = controller.UI.create('Alloy.CarbonFiber.iconic.Icon', opts);
+
+            if (iconView) {
+                iconContainer.add(iconView);
+            }
+
+            if (_.isObject(subscription)) {
+                Alloy.CarbonFiber.subscribe(iconContainer, subscription);
+            }
         }
 
         return iconContainer;
@@ -250,7 +256,7 @@
      * @return {Ti.UI.View}  Carbon's draggable view
      */
     Context.prototype.getDraggableView = function () {
-        return this.platform.isIOS() ? this.getWidgetController().carbon : this.getWidgetController().contentWrapper;
+        return this.platform.isIOS() ? this.getWidgetController().carbon : this.getWidgetController().wrapper;
     };
 
     /**
