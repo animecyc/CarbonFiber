@@ -109,10 +109,10 @@
         request : function (model, method) {
             var self = this,
                 url = this.getUrl(model),
-                sendRequest = _.bind(function () {
+                sendRequest = _.bind(function (xhrRef) {
                     Alloy.CarbonFiber.log('Remote - Opening [' + method + '] client for URL (' + url + ').', this.indentLog);
 
-                    xhr.open(method, url);
+                    xhrRef.open(method, url);
 
                     if ((method === 'POST' || method === 'PUT') && ! _.isObject(this.options.post)) {
                         throw 'Supplied post must be an object.';
@@ -124,7 +124,7 @@
                         Alloy.CarbonFiber.log('Remote - Sending request...', this.indentLog);
                     }
 
-                    xhr.send(this.options.post || undefined);
+                    xhrRef.send(this.options.post || undefined);
                 }, this),
                 xhr = Ti.Network.createHTTPClient({
 
@@ -176,7 +176,7 @@
                                 Alloy.CarbonFiber.subscribe(restartDialog, {
                                     click : function (clickEvent) {
                                         if (clickEvent.index === 0) {
-                                            sendRequest();
+                                            sendRequest(xhr);
                                         }
                                     }
                                 });
@@ -201,7 +201,7 @@
                 }, this);
             }
 
-            sendRequest();
+            sendRequest(xhr);
         },
 
         /**
@@ -229,7 +229,7 @@
                 throw 'Supplied query must be an object.';
             }
 
-            return parts ? '?' + parts.join('&') : '';
+            return parts.length ? '?' + parts.join('&') : '';
         },
 
         /**
