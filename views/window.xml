@@ -1,0 +1,15 @@
+<Alloy>
+    <Window>
+        <View id="windowWrapper">
+            <View id="navigationBar">
+                <View id="leftNavIcon" class="container left-nav-container">
+                    <Icon ns="Alloy.CarbonFiber.iconic" class="icon icon-close" />
+                </View>
+                <View id="rightNavIcon" class="container right-nav-container" />
+            </View>
+            <View id="wrapper">
+                <View id="content" />
+            </View>
+        </View>
+    </Window>
+</Alloy>

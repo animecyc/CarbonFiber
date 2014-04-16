@@ -17,6 +17,10 @@
 	exitOnClose : true
 },
 
+"#wrapper" : {
+    top : 43
+},
+
 "#contentWrapper[platform=android]": {
 	zIndex : 1
 },

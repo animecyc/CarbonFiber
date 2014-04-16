@@ -76,6 +76,26 @@
     };
 
     /**
+     * Create an android window
+     *
+     * @param  {Ti.UI.View} view View to add
+     * @param  {Object} options
+     * @param  {Boolean} lightweight
+     * @return {Ti.UI.Window | Ti.UI.View}
+     */
+    Context.prototype.createAndroidWindow = function (view, options, lightweight) {
+        var controller = Alloy.createController('../widgets/carbonfiber/controllers/window', options);
+
+        controller.content.add(view);
+
+        if (lightweight) {
+            return controller.windowWrapper;
+        }
+
+        return controller.getView();
+    };
+
+    /**
      * Get the content view
      *
      * @return {Ti.UI.View}  The Carbon content view

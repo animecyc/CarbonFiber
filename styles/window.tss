@@ -1,0 +1,50 @@
+"Window[formFactor=handheld]": {
+    orientationModes : [ Ti.UI.PORTRAIT ]
+},
+
+"Window[platform=android]": {
+    windowSoftInputMode : Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN,
+    navBarHidden : true,
+    exitOnClose : false,
+    backgroundColor : "#FFFFFF"
+},
+
+"#wrapper" : {
+    top : 43
+},
+
+"#navigationBar[platform=android]": {
+    zIndex : 1,
+    top : 0,
+    width : Ti.UI.FILL,
+    height : 43,
+    opacity : 1,
+    backgroundColor : '#1A78B1'
+},
+
+"#content": {
+    left : 0
+},
+
+".container": {
+    width: 40
+},
+
+".left-nav-container": {
+    left: 0
+},
+
+".right-nav-container": {
+    right: 0
+},
+
+".icon": {
+    color: "#FFFFFF",
+    font : {
+        fontSize : 22
+    }
+},
+
+".icon-close": {
+    icon: "close"
+}
