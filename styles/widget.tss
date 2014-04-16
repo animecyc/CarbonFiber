@@ -17,7 +17,7 @@
 	exitOnClose : true
 },
 
-"#wrapper" : {
+"#wrapper[platform=android]" : {
     top : 43
 },
 
