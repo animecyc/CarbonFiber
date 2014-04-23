@@ -145,9 +145,11 @@
 
                         Alloy.CarbonFiber.log('Remote - Request [' + xhr.status + '] => ' + _.str.truncate(xhr.responseText, 100), self.indentLog);
 
-                        model[model instanceof Backbone.Collection ? 'reset' : 'set'](model.parse(resp, xhr), self.options);
+                        if (method !== 'POST' || method !== 'PUT') {
+                            model[model instanceof Backbone.Collection ? 'reset' : 'set'](model.parse(resp, xhr), self.options);
 
-                        model.trigger('fetch', model);
+                            model.trigger('fetch', model);
+                        }
 
                         self.options.success();
                     },
