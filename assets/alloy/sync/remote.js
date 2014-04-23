@@ -197,9 +197,14 @@
 
             if (_.isObject(this.options.headers) && _.size(this.options.headers) > 0) {
                 _.each(this.options.headers, function (headerValue, headerKey) {
-                    Alloy.CarbonFiber.log('Remote - Setting header: ' + headerKey + ' => ' + headerValue, this.indentLog);
+                    if (Alloy.CarbonFiber.platform.isAndroid() && headerKey.toLowerCase() === 'content-type') {
+                        Alloy.CarbonFiber.log('Remote - Removing header [' + headerKey + '] as is not properly supported by the Android HTTPClient.', this.indentLog);
+                    }
+                    else {
+                        Alloy.CarbonFiber.log('Remote - Setting header: ' + headerKey + ' => ' + headerValue, this.indentLog);
 
-                    xhr.setRequestHeader(headerKey, headerValue);
+                        xhr.setRequestHeader(headerKey, headerValue);
+                    }
                 }, this);
             }
 
