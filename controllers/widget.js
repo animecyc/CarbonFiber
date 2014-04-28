@@ -29,6 +29,8 @@
         });
     }
     else {
+        Alloy.CarbonFiber.getDraggableView().enabled = false;
+
         $.carbon.open();
     }
 }).call(this);
