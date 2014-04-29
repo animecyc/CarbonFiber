@@ -1,14 +1,16 @@
 <Alloy>
 	<!-- BOF: Android -->
 	<Window id="carbon" platform="android">
-		<View id="behindWrapper" class="behind">
-			<View id="behind" />
-		</View>
+		<View id="carbonWrapper" opacity="0">
+			<View id="behindWrapper" class="behind">
+				<View id="behind" />
+			</View>
 
-		<View id="contentWrapper" class="draggable" module="ti.draggable">
-			<View id="navigationBar" />
-			<View id="wrapper">
-				<View id="content" />
+			<View id="contentWrapper" class="draggable" module="ti.draggable">
+				<View id="navigationBar" />
+				<View id="wrapper">
+					<View id="content" />
+				</View>
 			</View>
 		</View>
 	</Window>
